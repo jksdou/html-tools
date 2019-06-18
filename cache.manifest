@@ -6,10 +6,12 @@ index.html
 favicon.ico
 img/logo.png
 css/app.css
+css/fileretriever.css
 datapolicy.txt
 robots.txt
 js/ajax.js
 js/app.js
+js/fileretriever.js
 js/hash.js
 js/notify.js
 js/queryparams.js
