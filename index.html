@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<html manifest="/cache.manifest">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <title>JSON格式化工具 - 在线查看, 编辑和格式化工具</title>
+    <meta name="description" content="JSON格式化工具是一款基于web的视图工具，你可以在线编辑和格式化JSON数据，格式化后的JSON数据以树形结构展示，更易于阅读。">
+    <meta name="keywords" content="JSON Editor Online,JSON格式化工具,json格式化, json在线解析,json字符串格式化">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link href="css/app.css" rel="stylesheet" type="text/css">
+    <link href="css/fileretriever.css" rel="stylesheet" type="text/css">
+    <link href="lib/jsoneditor/css/jsoneditor.css" rel="stylesheet" type="text/css">
+    <link href="lib/jsoneditor/css/menu.css" rel="stylesheet" type="text/css">
+    <link href="lib/jsoneditor/css/searchbox.css" rel="stylesheet" type="text/css">
+    <link href="lib/jsoneditor/css/contextmenu.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="lib/jsoneditor/js/jsoneditor.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/treeeditor.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/texteditor.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/node.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/appendnode.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/contextmenu.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/history.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/searchbox.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/modebox.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/highlighter.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/util.js"></script>
+    <script type="text/javascript" src="lib/jsoneditor/js/module.js"></script>
+    <script type="text/javascript" src="js/queryparams.js"></script>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/fileretriever.js"></script>
+    <script type="text/javascript" src="js/notify.js"></script>
+    <script type="text/javascript" src="js/splitter.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="lib/jsonlint/jsonlint.js"></script>
+    <script type="text/javascript" src="lib/ace/ace.js"></script>
+    <script type="text/javascript" src="lib/ace/mode-json.js"></script>
+    <script type="text/javascript" src="lib/ace/theme-textmate.js"></script>
+    <script type="text/javascript" src="lib/ace/theme-jsoneditor.js"></script>
+</head>
+
+<body>
+
+    <div id="header">
+        <img alt="JSON格式化工具" title="JSON格式化工具" src="img/logo.png" id="logo">
+        <div id="menu">
+            <ul>
+                <li>
+                    <a id="clear" title="Clear contents">清除</a>
+                </li>
+                <li>
+                    <a id="open" title="从本地上传文件">打开<span id="openMenuButton" title="远程URL文件">&#x25BC;</span></a>
+                    <ul id="openMenu">
+                        <li>
+                            <a id="menuOpenFile" title="Open file from disk">打开文件</a>
+                        </li>
+                        <li>
+                            <a id="menuOpenUrl" title="Open file from url">打开&nbsp;URL</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a id="save" title="Save file to disk">保存</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div id="auto">
+        <div id="contents">
+            <div id="codeEditor"></div>
+
+            <div id="splitter">
+                <div id="buttons">
+                    <div>
+                        <button id="toTree" class="convert" title="复制代码到树形编辑器">
+                            <div class="convert-right"></div>
+                        </button>
+                    </div>
+                    <div>
+                        <button id="toCode" class="convert" title="复制树形到代码编辑器">
+                            <div class="convert-left"></div>
+                        </button>
+                    </div>
+                </div>
+                <div id="drag">
+                </div>
+            </div>
+
+            <div id="treeEditor"></div>
+
+            <script type="text/javascript">
+                app.load();
+                app.resize();
+            </script>
+
+            <div id="ad">
+                <!--  google广告位 -->
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div id="footer-inner">
+            Copyright 2019 &bull;<a href="http://uinote.com" class="footer">UINOTE</a>
+            &bull;
+            <a href="https://github.com/doudoudzj/json-editor-online" class="footer">Source</a>
+            &bull;
+            <a href="https://github.com/josdejong/jsoneditor" class="footer">JSON Editor</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        app.resize();
+    </script>
+
+    <script type="text/javascript" src="lib/jsonlint/jsonlint.js"></script>
+
+</body>
+
+</html>
