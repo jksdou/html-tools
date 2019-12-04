@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>邮箱LOGO在线制作</title>
+    <link href="./assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/css/style.css" rel="stylesheet" type="text/css" />
+    <meta name="keywords" content="邮箱,LOGO,图标,在线,制作" />
+    <meta name="description" content="免费在线制作漂亮的邮箱图标" />
+    <script>
+        var color = "999999";
+        var current_email_domain = "gmail.com";
+        var fsize = 12;
+        var nowcolor = "666666";
+        var nowbcolor = "cccccc";
+        var current_email_font = "arial";
+        var fname;
+
+        function getId(x) {
+            if (!!x) {
+                return document.getElementById(x);
+            }
+        }
+
+        function setcolor(c) {
+            nowcolor = c;
+            getId('email_username').style.color = "#" + c;
+        }
+
+        function setbcolor(c) {
+            nowbcolor = c;
+            getId('mailbcolor').style.background = "#" + c;
+        }
+
+        function setfont(x) {
+            current_email_font = x;
+        }
+
+        function setmails(m) {
+            if (!!m) {
+                current_email_domain = m;
+                getId('mails').src = "assets/logo/" + current_email_domain + ".gif";
+            } else {
+                current_email_domain = "";
+                getId('mails').src = "assets/logo/blank.gif";
+            }
+        }
+
+
+        function oCopy(obj) {
+            obj = getId(getId);
+            obj.select();
+            js = obj.createTextRange();
+            js.execCommand("Copy");
+        }
+
+        function ajax({
+            url,
+            type,
+            data,
+            dataType
+        }) {
+            return new Promise(function (open, err) {
+                //1. 创建xhr对象
+                var xhr = null;
+                if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xhr = new XMLHttpRequest();
+                } else { // code for IE6, IE5
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                //2.绑定监听事件
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var res = xhr.responseText;
+                        if (dataType === "json") {
+                            res = JSON.parse(res)
+                        }
+                        open(res);
+                    }
+                }
+                if (type == "get" && data != undefined) {
+                    url += "?" + data;
+                }
+                // 3.打开连接
+                xhr.open(type, url, true);
+                if (type === "post") {
+                    // 设置请求消息头
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                }
+                // 4.发送请求
+                if (type == "post" && data !== undefined) {
+                    xhr.send(data);
+                } else {
+                    xhr.send(null);
+                }
+            })
+        }
+
+        function make_email_logo() {
+            ajax({
+                url: 'emaillogo.php',
+                type: 'get',
+                data: 'action=mkpic' +
+                    '&name=' + getId('email_username').value +
+                    '&maillogo=' + current_email_domain +
+                    '&border=' + getId('haveborder').checked +
+                    '&bordercolor=' + nowbcolor +
+                    '&size=' + fsize +
+                    '&color=' + nowcolor +
+                    '&mailfont=' + current_email_font,
+                dataType: 'json'
+            }).then(function (res) {
+                console.log(res);
+                if (res.type == 2) {
+                    fname = res.time;
+                    getId('email_logo').src = res.filename;
+                    getId('picurl').value = window.location.protocol + res.picurl;
+                    getId('pichtml').value = '<img src="' + window.location.protocol + res.picurl +
+                        '" alt="邮箱图标" />';
+                } else if (res.type == 4) {
+                    fname = "";
+                    getId('email_logo').src = res.filename;
+                    getId('picurl').value = "";
+                    getId('pichtml').value = "";
+                } else {
+                    fname = "";
+                    getId('email_logo').src = res.filename;
+                    getId('picurl').value = "";
+                    getId('pichtml').value = "";
+                }
+            });
+        }
+
+        function download() {
+            if (fname) {
+                document.location = "emaillogo.php?action=download&file=" + fname;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1><a href="index.html">邮箱LOGO在线制作</a></h1>
+        <hr />
+        <p>免费在线制作漂亮的邮箱图标,操作非常简单,只需要在输入框中填入你的Email用户名,选择合适的邮箱后缀,点击按钮就可以自动生成邮箱LOGO,可以保存到本地，也可以复制链接分享</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label for="email_username">输入邮箱帐户名</label>
+                        <input type="text" class="form-control" id="email_username" maxlength="50" onfocus="select()" />
+                        <img src="assets/logo/gmail.com.gif" id="mails" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label>选择字体</label>
+                            <select class="form-control" id="sfont" onchange="setfont(this.value);" name="sfont">
+                                <option selected value="arial">默认arial</option>
+                                <option value="verdana">verdana</option>
+                                <option value="arial">tahoma</option>
+                                <option value="segoesc">行书体</option>
+                                <option value="itckrist">卡通体</option>
+                            </select>
+                            <label><input id="haveborder" type="checkbox" checked value="checkbox" name="haveborder">包括边框</label>
+                            <button class="btn btn-default" type="button" onClick="make_email_logo();">点击生成</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>文字颜色</label>
+                    <div class="acb">
+                        <img onclick="setcolor('000000');" src="./assets/images/1.gif">
+                        <img onclick="setcolor('333333');" src="./assets/images/2.gif">
+                        <img onclick="setcolor('666666');" src="./assets/images/3.gif">
+                        <img onclick="setcolor('999999');" src="./assets/images/4.gif">
+                        <img onclick="setcolor('cccccc');" src="./assets/images/0.gif">
+                        <img onclick="setcolor('ffcc33');" src="./assets/images/5.gif">
+                        <img onclick="setcolor('009900');" src="./assets/images/6.gif">
+                        <img onclick="setcolor('ff6600');" src="./assets/images/7.gif">
+                        <img onclick="setcolor('99cc00');" src="./assets/images/8.gif">
+                        <img onclick="setcolor('0099ff');" src="./assets/images/9.gif">
+                        <img onclick="setcolor('0264ad');" src="./assets/images/14.gif">
+                        <img onclick="setcolor('660066');" src="./assets/images/10.gif">
+                        <img onclick="setcolor('ff0099');" src="./assets/images/11.gif">
+                        <img onclick="setcolor('996666');" src="./assets/images/12.gif">
+                        <img onclick="setcolor('cc0000');" src="./assets/images/13.gif">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>边框颜色</label>
+                    <div id="mailbcolor" style="width:30px;height:18px;background:#cccccc;"></div>
+                    <div class="acb">
+                        <img onclick="setbcolor('000000');" src="./assets/images/1.gif">
+                        <img onclick="setbcolor('333333');" src="./assets/images/2.gif">
+                        <img onclick="setbcolor('666666');" src="./assets/images/3.gif">
+                        <img onclick="setbcolor('999999');" src="./assets/images/4.gif">
+                        <img onclick="setbcolor('cccccc');" src="./assets/images/0.gif">
+                        <img onclick="setbcolor('ffcc33');" src="./assets/images/5.gif">
+                        <img onclick="setbcolor('009900');" src="./assets/images/6.gif">
+                        <img onclick="setbcolor('ff6600');" src="./assets/images/7.gif">
+                        <img onclick="setbcolor('99cc00');" src="./assets/images/8.gif">
+                        <img onclick="setbcolor('0099ff');" src="./assets/images/9.gif">
+                        <img onclick="setbcolor('0264ad');" src="./assets/images/14.gif">
+                        <img onclick="setbcolor('660066');" src="./assets/images/10.gif">
+                        <img onclick="setbcolor('ff0099');" src="./assets/images/11.gif">
+                        <img onclick="setbcolor('996666');" src="./assets/images/12.gif">
+                        <img onclick="setbcolor('cc0000');" src="./assets/images/13.gif">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <img src="assets/logo/gmail.com.gif" id="email_logo" alt="邮箱图标" />
+                </div>
+                <div class="form-group">
+                    <label>图片地址</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="oCopy('picurl')">复制</button>
+                        </div>
+                        <input class="form-control" type="text" onclick="this.select()" id="picurl" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>HTML代码</label>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="oCopy('pichtml')">复制</button>
+                        </div>
+                        <input class="form-control" type="text" onclick="this.select()" id="pichtml" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default" type="button" onclick="download();">下载保存</button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h2>选择邮箱后缀</h2>
+        <hr />
+        <ul class="email-logo-list">
+            <li><img src="assets/logo/gmail.com.gif" onClick="setmails('gmail.com'); "></li>
+            <li><img src="assets/logo/gmail.gif" onClick="setmails('gmail'); "></li>
+            <li><img src="assets/logo/live.com.gif" onClick="setmails('live.com'); "></li>
+            <li><img src="assets/logo/livecom.gif" onClick="setmails('livecom'); "></li>
+            <li><img src="assets/logo/live.cn.gif" onClick="setmails('live.cn'); "></li>
+            <li><img src="assets/logo/tw.live.com.gif" onClick="setmails('tw.live.com'); "></li>
+            <li><img src="assets/logo/hotmail.com.gif" onClick="setmails('hotmail.com'); "></li>
+            <li><img src="assets/logo/hotmail.gif" onClick="setmails('hotmail'); "></li>
+            <li><img src="assets/logo/hotmailnew.gif" onClick="setmails('hotmailnew'); "></li>
+            <li><img src="assets/logo/msn.com.gif" onClick="setmails('msn.com'); "></li>
+            <li><img src="assets/logo/msn.gif" onClick="setmails('msn'); "></li>
+            <li><img src="assets/logo/163.com.gif" onClick="setmails('163.com'); "></li>
+            <li><img src="assets/logo/163com.gif" onClick="setmails('163com'); "></li>
+            <li><img src="assets/logo/vip163com.gif" onClick="setmails('vip163com'); "></li>
+            <li><img src="assets/logo/vip.163.com.gif" onClick="setmails('vip.163.com'); "></li>
+            <li><img src="assets/logo/yeah.net.gif" onClick="setmails('yeah.net'); "></li>
+            <li><img src="assets/logo/yeahnetzx.gif" onClick="setmails('yeahnetzx'); "></li>
+            <li><img src="assets/logo/yeahnet.gif" onClick="setmails('yeahnet'); "></li>
+            <li><img src="assets/logo/neteasecom.gif" onClick="setmails('neteasecom'); "></li>
+            <li><img src="assets/logo/126.com.gif" onClick="setmails('12zhaoxi.net'); "></li>
+            <li><img src="assets/logo/126com.gif" onClick="setmails('126com'); "></li>
+            <li><img src="assets/logo/163.net.gif" onClick="setmails('163.net'); "></li>
+            <li><img src="assets/logo/yahoo.cn.gif" onClick="setmails('yahoo.cn'); "></li>
+            <li><img src="assets/logo/yahoocom.gif" onClick="setmails('yahoocom'); "></li>
+            <li><img src="assets/logo/yahoo.com.gif" onClick="setmails('yahoo.com'); "></li>
+            <li><img src="assets/logo/yahoocomcn.gif" onClick="setmails('yahoocomcn'); "></li>
+            <li><img src="assets/logo/yahoo.com.cn.gif" onClick="setmails('yahoo.com.cn'); "></li>
+            <li><img src="assets/logo/yahoo.com.tw.gif" onClick="setmails('yahoo.com.tw'); "></li>
+            <li><img src="assets/logo/yahoo.sg.gif" onClick="setmails('yahoo.sg'); "></li>
+            <li><img src="assets/logo/qq.com.gif" onClick="setmails('qq.com'); "></li>
+            <li><img src="assets/logo/qqcom.gif" onClick="setmails('qqcom'); "></li>
+            <li><img src="assets/logo/vip.qq.com.gif" onClick="setmails('vip.qq.com'); "></li>
+            <li><img src="assets/logo/sina.com.gif" onClick="setmails('sina.com'); "></li>
+            <li><img src="assets/logo/vipsinacom.gif" onClick="setmails('vipsinacom'); "></li>
+            <li><img src="assets/logo/2008.sina.com.gif" onClick="setmails('2008.sina.com'); "></li>
+            <li><img src="assets/logo/vip.sina.com.gif" onClick="setmails('vip.sina.com'); "></li>
+            <li><img src="assets/logo/sinacn.gif" onClick="setmails('sinacn'); "></li>
+            <li><img src="assets/logo/sohu.com.gif" onClick="setmails('sohu.com'); "></li>
+            <li><img src="assets/logo/vip.sohu.com.gif" onClick="setmails('vip.sohu.com'); "></li>
+            <li><img src="assets/logo/sogoucom.gif" onClick="setmails('sogoucom'); "></li>
+            <li><img src="assets/logo/chinahencom.gif" onClick="setmails('chinahencom'); "></li>
+            <li><img src="assets/logo/139.com.gif" onClick="setmails('139.com'); "></li>
+            <li><img src="assets/logo/aol.com.gif" onClick="setmails('aol.com'); "></li>
+            <li><img src="assets/logo/lycos.com.gif" onClick="setmails('lycos.com'); "></li>
+            <li><img src="assets/logo/inbox.com.gif" onClick="setmails('inbox.com'); "></li>
+            <li><img src="assets/logo/21cn.com.gif" onClick="setmails('21cn.com'); "></li>
+            <li><img src="assets/logo/21cnnet.gif" onClick="setmails('21cnnet'); "></li>
+            <li><img src="assets/logo/aolcom.gif" onClick="setmails('aolcom'); "></li>
+            <li><img src="assets/logo/attcom.gif" onClick="setmails('attcom'); "></li>
+            <li><img src="assets/logo/tom.com.gif" onClick="setmails('tom.com'); "></li>
+            <li><img src="assets/logo/tomcom.gif" onClick="setmails('tomcom'); "></li>
+            <li><img src="assets/logo/188.com.gif" onClick="setmails('188.com'); "></li>
+            <li><img src="assets/logo/263.net.gif" onClick="setmails('263.net'); "></li>
+            <li><img src="assets/logo/263net.gif" onClick="setmails('263net'); "></li>
+            <li><img src="assets/logo/3126.gif" onClick="setmails('3126'); "></li>
+            <li><img src="assets/logo/foxmail.com.gif" onClick="setmails('foxmail.com'); "></li>
+            <li><img src="assets/logo/xinhuanet.com.gif" onClick="setmails('xinhuanet.com'); "></li>
+            <li><img src="assets/logo/51.com.gif" onClick="setmails('51.com'); "></li>
+            <li><img src="assets/logo/xuite.net.gif" onClick="setmails('xuite.net'); "></li>
+            <li><img src="assets/logo/china.com.gif" onClick="setmails('china.com'); "></li>
+            <li><img src="assets/logo/chinacom.gif" onClick="setmails('chinacom'); "></li>
+            <li><img src="assets/logo/mail.china.com.gif" onClick="setmails('mail.china.com'); "></li>
+            <li><img src="assets/logo/mailchinacom.gif" onClick="setmails('mailchinacom'); "></li>
+            <li><img src="assets/logo/etang.com.gif" onClick="setmails('etang.com'); "></li>
+            <li><img src="assets/logo/etangcom.gif" onClick="setmails('etangcom'); "></li>
+            <li><img src="assets/logo/56.com.gif" onClick="setmails('5zhaoxi.net'); "></li>
+            <li><img src="assets/logo/56com.gif" onClick="setmails('56com'); "></li>
+            <li><img src="assets/logo/enet.gif" onClick="setmails('enet'); "></li>
+            <li><img src="assets/logo/mailenet.gif" onClick="setmails('mailenet'); "></li>
+            <li><img src="assets/logo/bigfootcom.gif" onClick="setmails('bigfootcom'); "></li>
+            <li><img src="assets/logo/eyou.com.gif" onClick="setmails('eyou.com'); "></li>
+            <li><img src="assets/logo/eyowcom.gif" onClick="setmails('eyowcom'); "></li>
+            <li><img src="assets/logo/donews.com.gif" onClick="setmails('donews.com'); "></li>
+            <li><img src="assets/logo/citiz.net.gif" onClick="setmails('citiz.net'); "></li>
+            <li><img src="assets/logo/bokee.com.gif" onClick="setmails('bokee.com'); "></li>
+            <li><img src="assets/logo/eastdaycom.gif" onClick="setmails('eastdaycom'); "></li>
+            <li><img src="assets/logo/elomgcom.gif" onClick="setmails('elomgcom'); "></li>
+            <li><img src="assets/logo/emailcomcn.gif" onClick="setmails('emailcomcn'); "></li>
+            <li><img src="assets/logo/enorthcomcn.gif" onClick="setmails('enorthcomcn'); "></li>
+            <li><img src="assets/logo/mailcom.gif" onClick="setmails('mailcom'); "></li>
+            <li><img src="assets/logo/homggncom.gif" onClick="setmails('homggncom'); "></li>
+            <li><img src="assets/logo/rocketmailcom.gif" onClick="setmails('rocketmailcom'); "></li>
+            <li><img src="assets/logo/vip371com.gif" onClick="setmails('vip371com'); "></li>
+            <li><img src="assets/logo/x.cn.gif" onClick="setmails('x.cn'); "></li>
+            <li><img src="assets/logo/blank.gif" onClick="setmails(); "></li>
+        </ul>
+    </div>
+    </div>
+</body>
+
+</html>
