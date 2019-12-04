@@ -85,11 +85,11 @@ if ($_GET["action"] == "show" && isset($_GET['file'])) {
         $newWidth = $str_width + 15 + $srcWidth; //LOGO总宽度
         $newHeight = ($srcHeight > $str_height) ? $srcHeight + 2 : $str_height + 8;
         $image = imagecreatetruecolor($newWidth, $newHeight); //创建图片
-        $back_color = hexrgb($back_c, rgb); //取背景颜色
+        $back_color = hexrgb($back_c, "rgb"); //取背景颜色
         $back = imagecolorallocate($image, $back_color['r'], $back_color['g'], $back_color['b']); //背景颜色 白色
         imagefilledrectangle($image, 0, 0, $newWidth - 1, $newHeight - 1, $back); //背景填充
         if ($is_border) {
-            $border_color = hexrgb($border_c, rgb); //取边框颜色
+            $border_color = hexrgb($border_c, "rgb"); //取边框颜色
             $border = imagecolorallocate($image, $border_color['r'], $border_color['g'], $border_color['b']); //边框颜色
             imagerectangle($image, 0, 0, $newWidth - 1, $newHeight - 1, $border); //画边框
         }
@@ -98,7 +98,7 @@ if ($_GET["action"] == "show" && isset($_GET['file'])) {
             $srcY = ($newHeight - $srcHeight) / 2; //Email图片Y轴位置
             ImageCopy($image, $origImg, $srcX, $srcY, 0, 0, $srcWidth, $srcHeight); //将Email图片复制到LOGO上
         }
-        $font_color = hexrgb($font_c, rgb); //取字体颜色
+        $font_color = hexrgb($font_c, "rgb"); //取字体颜色
         $color = imagecolorallocate($image, $font_color['r'], $font_color['g'], $font_color['b']); //字体颜色
         $str_x = $str_height + ($newHeight - $str_height) / 2;
         if (!$is_logo) {
