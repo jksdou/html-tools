@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>通过htaccess 404自定义错误页面</title>
+    <meta name="Keywords" content=".htaccess,htaccess,404,自定义,错误,页面" />
+    <meta name="Description" content="这个问题难不倒万能的htaccess，通过htaccess定义404错误可谓是小菜一碟，并且其它的错误类别也可以依葫芦画瓢。" />
+    <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">网页工具大全</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html" title="htaccess在线编辑生成器">.HTACCESS文件在线生成</a></li>
+                    <li><a href="introduce.html" title="htaccess文件介绍">文件介绍</a></li>
+                    <li><a href="guide.html" title="htaccess用法大全">用法大全</a></li>
+                    <li><a href="redirect.html" title="htaccess文件中的301重定向">301重定向</a></li>
+                    <li class="active"><a href="error.html" title="htaccess自定义404等错误页面">自定义错误</a></li>
+                    <li><a href="rewrite.html" title="使用htaccess文件伪静态">伪静态</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://usite.pub/index.php" title="免费空间" target="_blank">免费空间</a></li>
+                    <li><a href="https://github.com/doudoudzj/tool.uinote.com" target="_blank">源码</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h2 class="text-center">htaccess 404错误页面的自定义</h2>
+        <hr />
+        <p>
+            估计所有类型的页面里，404错误页面是见得最多的一个页面了，冷不防出现个冰冷的404，用户体验非常差，也会给SEO带来不好的影响。
+            一个好的404错误页面不仅可以引导用户至正确的页面，也会给人一种赏心悦目的感觉。另外，也可以通过<a href="redirect.html" target="_self">301重定向</a>来更好的解决该页无法找到的问题。</p>
+        <p>如果网站建立不久，就出现了什么改版、换程序等等，会在搜索引擎中产生大量的无效页面，如果不及时处理，很可能使你的站在搜索引擎中降低地位。
+            众所周知，在Windows IIS里面，可以直接通过管理工具自定义错误文档，但这在Apache下如何实现呢？如果你用的是虚拟主机，无法自己定义，又该如何实现呢？</p>
+        <p>这个问题难不倒万能的htaccess，通过htaccess定义404错误可谓是小菜一碟，并且其它的错误类别也可以依葫芦画瓢。</p>
+        <p>一般来说，有两种方法可以自己定义404错误页面，一种是通过空间控制面板，这种方法简单易行；另一种是自己建立htaccess文件，写入定义：</p>
+        <p class="alert alert-info">ErrorDocument 404 http://www.uinote.com/404.html</p>
+        <p>
+            该行代码即定义404错误为404.html这个页面。其中404为错误代码，后面的网址为出现错误时需要返回的页面。我们非常建议使用完整地址，这样会减少出错的几率。另外，还有很多常用的其它错误代码也可以自己定义，如：
+        </p>
+        <p class="alert alert-info">400 - Bad request 错误的请求<BR>401 - Authorization Required 需要认证<BR>403 - Forbidden directory
+            禁止访问<BR>404 - Page not found 无法找到该页<BR>500 - Internal Server Error 内部服务器错误</p>
+        <p>按照以上的格式添加进去即可。如果按照以上方法出现错误，可能是文件保存编码的问题。因此，我们建议您使用我们的工具来替您全自动完成这项工作，或者使用notepad2来编写该htaccess文件。
+        </p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <span>&copy; 2019 <a href="https://github.com/doudoudzj" target="blank">doudoudzj</a></span>
+                <span class="pull-right">Powered by <a href="https://crogram.com" target="_blank">Crogram</a></span>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

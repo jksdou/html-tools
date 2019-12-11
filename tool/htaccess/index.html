@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>.htaccess文件在线生成器</title>
+    <meta name="Keywords" content=".htaccess, htaccess, 在线, 编辑, 生成, 制作, 301, 404" />
+    <meta name="Description" content="自动.htaccess文件在线生成编辑器，简单完成您需要的301跳转、404自定义等复杂任务！" />
+    <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <script type="text/javascript" src="assets/js/basic.js"></script>
+    <script type="text/javascript" src="assets/js/makeHtaccess.js"></script>
+    <script type="text/javascript" src="../assets/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function subdownload() {
+            document.htaccessform.action = "getfile.php";
+            document.htaccessform.method = "POST";
+            document.htaccessform.submit();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">网页工具大全</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html" title="htaccess在线编辑生成器">.HTACCESS文件在线生成</a></li>
+                    <li><a href="introduce.html" title="htaccess文件介绍">文件介绍</a></li>
+                    <li><a href="guide.html" title="htaccess用法大全">用法大全</a></li>
+                    <li><a href="redirect.html" title="htaccess文件中的301重定向">301重定向</a></li>
+                    <li><a href="error.html" title="htaccess自定义404等错误页面">自定义错误</a></li>
+                    <li><a href="rewrite.html" title="使用htaccess文件伪静态">伪静态</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://usite.pub/index.php" title="免费空间" target="_blank">免费空间</a></li>
+                    <li><a href="https://github.com/doudoudzj/tool.uinote.com" target="_blank">源码</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <form name="htaccessform" action="">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="list-group" role="tablist">
+                            <a class="list-group-item" href="#fileList" title="设置是否允许服务器返回目录列表与是否缓存图片等等"
+                                aria-controls="fileList" role="tab" data-toggle="tab">常规全局设置</a>
+                            <a class="list-group-item" role="presentation" href="#basic" title="对某些目录下的文件设置密码保护，阻止非法访问"
+                                aria-controls="basic" role="tab" data-toggle="tab">文件夹密码保护</a>
+                            <a class="list-group-item" role="presentation" href="#errorPage"
+                                title="设置404、403等错误的默认页面，提高用户体验" aria-controls="errorPage" role="tab"
+                                data-toggle="tab">自定义错误页面</a>
+                            <a class="list-group-item" role="presentation" href="#extension"
+                                title="自定义网站目录的默认文档，比如index.html等" aria-controls="extension" role="tab"
+                                data-toggle="tab">自定义默认文档</a>
+                            <a class="list-group-item" role="presentation" href="#WWW"
+                                title="将带WWW格式的网址与不带WWW格式的网址进行统一，有利于SEO" aria-controls="WWW" role="tab"
+                                data-toggle="tab">WWW域名重定向</a>
+                            <a class="list-group-item" role="presentation" href="#redirect"
+                                title="设置重定向，更换域名或者改变网址等情况下非常有用" aria-controls="redirect" role="tab"
+                                data-toggle="tab">网页重定向</a>
+                            <a class="list-group-item" role="presentation" href="#access"
+                                title="保护你的目录不被非法访问，比如限制访问IP等等" aria-controls="access" role="tab"
+                                data-toggle="tab">访问权限控制</a>
+                            <a class="list-group-item" role="presentation" href="#mime" title="自定义MIME文件类型"
+                                aria-controls="mime" role="tab" data-toggle="tab">MIME类型修改</a>
+                            <a class="list-group-item" role="presentation" href="#image"
+                                title="对于流量有限的网站来说，图片防盗链可以有效的阻止其他网站盗链你的图片文件" aria-controls="image" role="tab"
+                                data-toggle="tab">设置图片防盗链</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="fileList">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">常规全局设置</div>
+                                <div class="panel-body">
+                                    <h3>是否在没有默认文档的目录显示文件列表</h3>
+                                    <p>一般来说，此项设置默认即可。如果您选择“显示”，则意味着访问有些没有默认文档的目录时，服务器会返回该目录下的文件列表。请您注意，这可能给您的站点带来安全隐患。
+                                    </p>
+                                    <div class="form-inline">
+                                        <select name="file_list" class="form-control" onchange="doAll()"
+                                            onkeyup="doAll()" onblur="doAll()">
+                                            <option value="" selected="selected">默认</option>
+                                            <option value="true">显示</option>
+                                            <option value="false">隐藏</option>
+                                        </select>
+                                    </div>
+                                    <h3>
+                                        <p><strong>是否开启站点的图片缓存</strong></p>
+                                    </h3>
+                                    <p>如果您的站点包含了大量的图片，并且一般不会更改，请尝试开启此项以设置图片缓存。在某些情况下开启此项可以加快页面载入速度，减少服务器流量消耗。</p>
+                                    <div class="form-inline">
+                                        <select name="Pic_cache" class="form-control" onchange="doAll()"
+                                            onkeyup="doAll()" onblur="doAll()">
+                                            <option value="" selected="selected">默认</option>
+                                            <option value="t600">开启10分钟缓存</option>
+                                            <option value="t3600">开启1小时缓存</option>
+                                            <option value="t18000">开启5小时缓存</option>
+                                            <option value="t86400">开启24小时缓存</option>
+                                            <option value="t604800">开启一周缓存</option>
+                                            <option value="t2592000">开启一个月缓存</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="basic">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">文件夹密码保护</div>
+                                <div class="panel-body">
+                                    <p><b>第一步</b> 制作一个.htpasswd文件</p>
+                                    <div class="form-inline">
+                                        <label>用户名：<input name="user" type="text" size="30"
+                                                class="form-control shortMiddle" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>密码：<input name="pwd1" type="text" size="30"
+                                                class="form-control shortMiddle" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>长度：<select name="taille" class="form-control">
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option selected="selected">10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                                <option>15</option>
+                                                <option>20</option>
+                                            </select></label>
+                                        <button type="button" class="btn btn-default"
+                                            onclick="generation(this.form)">随机密码</button>
+                                        <button type="button" class="btn btn-default"
+                                            onclick="this.form.pwd2.value=htpasswd(this.form.user.value, this.form.pwd1.value, this.form.alg)">创建.htpasswd内容</button>
+                                    </div>
+                                    <input type="hidden" class="btn btn-default" name="alg" value="1" />
+                                    <p>点击“创建.htpasswd内容”按钮后，请将此栏的内容复制并储存为.htpasswd文件，上传至服务器。</p>
+                                    <div class="form-inline">
+                                        <label>.htpasswd内容：<input name="pwd2" type="text" size="60"
+                                                class="form-control" /></label>
+                                    </div>
+
+                                    <p><b>第二步</b> 输入上传的.htpasswd文件的完整路径（例：/home/foo/bar/.htpasswd）</p>
+                                    <div class="form-inline">
+                                        <input name="sitePathPwd" type="text" size="60" class="form-control"
+                                            onkeyup="doAll()" onblur="doAll()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="errorPage">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">自定义错误页面</div>
+                                <div class="panel-body">
+                                    <p>请输入网址或错误页面的路径（例如：/404.html）</p>
+                                    <table class="table table-borderless">
+                                        <tr class="form-inline">
+                                            <td class="code">400</td>
+                                            <td class="description">错误的请求</td>
+                                            <td>
+                                                <input name="error400" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">401</td>
+                                            <td class="description">认证失败</td>
+                                            <td><input name="error401" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">402</td>
+                                            <td class="description">需要付费</td>
+                                            <td><input name="error402" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">403</td>
+                                            <td class="description">禁止访问(Forbidden)</td>
+                                            <td><input name="error403" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">404</td>
+                                            <td class="description">未找到(Not Found)</td>
+                                            <td><input name="error404" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">405</td>
+                                            <td class="description">方法不允许</td>
+                                            <td><input name="error405" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">406</td>
+                                            <td class="description">不可接受</td>
+                                            <td><input name="error406" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">407</td>
+                                            <td class="description">需要代理认证</td>
+                                            <td><input name="error407" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">408</td>
+                                            <td class="description">请求超时</td>
+                                            <td><input name="error408" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">409</td>
+                                            <td class="description">请求冲突</td>
+                                            <td><input name="error409" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">410</td>
+                                            <td class="description">失败</td>
+                                            <td><input name="error410" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">411</td>
+                                            <td class="description">需要长度</td>
+                                            <td><input name="error411" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">412</td>
+                                            <td class="description">条件失败</td>
+                                            <td><input name="error412" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">413</td>
+                                            <td class="description">请求实体太长</td>
+                                            <td><input name="error413" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">414</td>
+                                            <td class="description">请求URI太长</td>
+                                            <td><input name="error414" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">500</td>
+                                            <td class="description">服务器内部错误</td>
+                                            <td><input name="error500" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">501</td>
+                                            <td class="description">未实现</td>
+                                            <td><input name="error501" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">502</td>
+                                            <td class="description">错误的网关</td>
+                                            <td><input name="error502" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">503</td>
+                                            <td class="description">服务不可用</td>
+                                            <td><input name="error503" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="code">504</td>
+                                            <td class="description">网关超时</td>
+                                            <td><input name="error504" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                        <tr class="form-inline">
+                                            <td class="code">505</td>
+                                            <td class="description">HTTP版本不支持</td>
+                                            <td><input name="error505" type="text" size="36" class="form-control"
+                                                    onkeyup="doAll()" onblur="doAll()" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="extension">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">自定义默认文档</div>
+                                <div class="panel-body">
+                                    <p>请输入文件名（例：index.html）</p>
+                                    <div class="form-inline">
+                                        <label>预设页面1
+                                            <input name="extension1" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>预设页面2
+                                            <input name="extension2" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>预设页面3
+                                            <input name="extension3" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>预设页面4
+                                            <input name="extension4" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label>预设页面5
+                                            <input name="extension5" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>预设页面6
+                                            <input name="extension6" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>预设页面7
+                                            <input name="extension7" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>预设页面8
+                                            <input name="extension8" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="WWW">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">www域名重定向</div>
+                                <div class="panel-body">
+                                    <p>请输入您最终决定使用的网址（比如http://uinote.com 或者 http://www.uinote.com，程序将自动判断重定向类型）</p>
+                                    <p><input value="http://" name="unifiedURL" type="text" size="36"
+                                            class="form-control" onkeyup="doAll()" onblur="doAll()" /></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="redirect">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">网页重定向</div>
+                                <div class="panel-body">
+                                    <p>在“原地址”输入网站路径、“目标”内输入网址</p>
+                                    <p>示例：</p>
+                                    <p>原地址：/ 目标：http://www.new.com/</p>
+                                    <p>将所有文件（夹）重定向到http://www.new.com/一一对应的页面</p>
+                                    <p>原地址：/old.html 目标：http://www.old.com/new.html</p>
+                                    <p>将页面old.html内容重定向到http://www.old.com/new.html页面</p>
+                                    <p>不会使用？参见<a href="#" target="_blank">.htaccess的重定向方法详解</a>进行学习。</p>
+                                    <p><strong>301 Moved Permanently</strong> 永久重定向</p>
+                                    <div>
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirectFrom1" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirectTo1" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirectFrom2" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirectTo2" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirectFrom3" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirectTo3" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirectFrom4" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirectTo4" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirectFrom5" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirectTo5" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirectFrom6" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirectTo6" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirectFrom7" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirectTo7" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirectFrom8" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirectTo8" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                    </div>
+
+                                    <p style="margin-top: 15px;"><strong>302 Moved Temporarily</strong> 临时重定向</p>
+                                    <div>
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirect302From1" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirect302To1" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirect302From2" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirect302To2" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+
+                                        <div class="form-inline">
+                                            <label>原地址: <input name="redirect302From3" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>目标: <input name="redirect302To3" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirect302From4" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirect302To4" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirect302From5" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirect302To5" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirect302From6" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+
+                                            <label> To: <input name="redirect302To6" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirect302From7" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                            <label>To: <input name="redirect302To7" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                        <div class="form-inline">
+                                            <label>From: <input name="redirect302From8" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+
+                                            <label> To: <input name="redirect302To8" type="text" size="36"
+                                                    class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="access">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">访问权限控制</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p>请输入允许访问的路径（IP）：</p>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK1" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK2" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK3" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK4" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK5" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK6" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK7" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label>OK: <input name="blockOK8" type="text" size="36"
+                                                        class="form-control" onkeyup="doAll()"
+                                                        onblur="doAll()" /></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>请输入拒绝访问的路径（IP）：</p>
+                                            <div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG1" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG2" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG3" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG4" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG5" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG6" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG7" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                                <div class="form-inline">
+                                                    <label>NG: <input name="blockNG8" type="text" size="36"
+                                                            class="form-control" onkeyup="doAll()"
+                                                            onblur="doAll()" /></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="mime">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">MIME类型自定义</div>
+                                <div class="panel-body">
+                                    <p>输入您的文件名后缀（不需要加小数点）</p>
+                                    <p><strong>添加MIME</strong></p>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm1" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME1" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm2" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME2" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm3" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME3" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm4" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME4" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm5" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME5" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>文件后缀: <input name="MIMEForm6" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                        <label>文件类型: <input name="MIME6" type="text" size="36" class="form-control"
+                                                onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="image">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">图片文件防盗链</div>
+                                <div class="panel-body">
+                                    <p>输入 允许链接您图片的域名 与 您希望替换后图片的地址。尤其注意，替换后文件的地址不能是您当前域名内的文件，否则将造成循环。</p>
+                                    <p>比如：允许访问的域名输入“yoursite.com”、“baidu.com”、“google.com”（不带http://与www，仅输入顶级域名，别忘了添加自己的域名），
+                                    </p>
+                                    <p>替换成图片输入完整网址：“http://www.uinote.com/photo.jpg”</p>
+                                    <p><strong>允许以下域名访问图片：</strong></p>
+                                    <div class="form-inline">
+                                        <label>顶级域名（1）: <input name="PicForm1" type="text" size="36"
+                                                class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>顶级域名（2）: <input name="PicForm2" type="text" size="36"
+                                                class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>顶级域名（3）: <input name="PicForm3" type="text" size="36"
+                                                class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label>顶级域名（4）: <input name="PicForm4" type="text" size="36"
+                                                class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                    <p><strong>将非法盗链的图片替换为：</strong></p>
+                                    <div class="form-inline">
+                                        <label>完整地址（带“http://”）: <input name="Pic1" type="text" size="64"
+                                                class="form-control" onkeyup="doAll()" onblur="doAll()" /></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">.htaccess文件内容</div>
+                        <div class="panel-body">
+                            <textarea name="htaccess" class="form-control" cols="80" rows="15"></textarea>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default" name="download"
+                                onclick="subdownload()">下载.htaccess文件</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <span>&copy; 2019 <a href="https://github.com/doudoudzj" target="blank">doudoudzj</a></span>
+                <span class="pull-right">Powered by <a href="https://crogram.com" target="_blank">Crogram</a></span>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

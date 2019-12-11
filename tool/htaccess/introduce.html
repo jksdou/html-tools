@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>.htaccess简介</title>
+    <meta name="Keywords" content=".htaccess,htaccess,简介,作用,生成" />
+    <meta name="Description" content="htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件" />
+    <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">网页工具大全</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html" title="htaccess在线编辑生成器">.HTACCESS文件在线生成</a></li>
+                    <li class="active"><a href="introduce.html" title="htaccess文件介绍">文件介绍</a></li>
+                    <li><a href="guide.html" title="htaccess用法大全">用法大全</a></li>
+                    <li><a href="redirect.html" title="htaccess文件中的301重定向">301重定向</a></li>
+                    <li><a href="error.html" title="htaccess自定义404等错误页面">自定义错误</a></li>
+                    <li><a href="rewrite.html" title="使用htaccess文件伪静态">伪静态</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://usite.pub/index.php" title="免费空间" target="_blank">免费空间</a></li>
+                    <li><a href="https://github.com/doudoudzj/tool.uinote.com" target="_blank">源码</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h2 class="text-center">.htaccess是什么文件</h2>
+        <hr />
+        <p>.htaccess文件是Apache服务器中的一个配置文件，它负责相关目录下的网页配置。通过htaccess文件，可以帮我们实现：网页301重定向、自定义404错误页面、改变文件扩展名、允许/阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
+        </p>
+        <p>一般来说，htaccess文件需要放在网站的根目录下才能控制整个站点，并且在Linux系统中，需要把其权限设置为644以提高安全性。国内很多主机提供商都通过一定技术手段禁用了该文件，但是国外大多数空间商都是支持该文件的，可以极大的扩展虚拟主机的功能
+        </p>
+        <p>.htaccess文件中的配置指令作用于.htaccess文件所在的目录及其所有子目录，但是很重要的、需要注意的是，其上级目录也可能会有.htaccess文件，而指令是按查找顺序依次生效的，所以一个特定目录下的.htaccess文件中的指令可能会覆盖其上级目录中的.htaccess文件中的指令，即子目录中的指令会覆盖父目录或者主配置文件中的指令。
+        </p>
+        <p>在实际应用中，用户最常用其重定向功能与伪静态功能，比如把一个PHP的动态页面定义成一个HTML后缀的静态页面URL形式，这种形式在用户端完全无法看出来，因此，伪静态也是SEO的一种重要手段。常见的程序比如PHPwind、DedeCMS、Wordpress等都支持自动伪静态。
+        </p>
+        <p>本文件应该由UTF-8编码，或者不添加BOM的Windows编码也可以。因此，不能使用Windows系统自带的记事本程序来编写Htaccess文件，常见的Notepad2等软件可以用来编写该文件。</p>
+        <p>如果手头没有编辑工具或者不方便下载，可以通过本站的“<a href="index.html" target="_self">.htaccess制作生成编辑器</a>”来自动处理这个文件。我们已经完全修正了这套程序中原来存在的很多错误，并且增加了很多使用的功能（比如直接下载），您可以放心使用。
+                但由于服务器系统的不确定性，我们强烈建议您在上传之前，将原来的文件备份。本站不可能因使用这套程序造成的损失承担任何责任。
+        </p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <span>&copy; 2019 <a href="https://github.com/doudoudzj" target="blank">doudoudzj</a></span>
+                <span class="pull-right">Powered by <a href="https://crogram.com" target="_blank">Crogram</a></span>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

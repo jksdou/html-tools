@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>.htaccess伪静态设置方法</title>
+    <meta name="Keywords" content=".htaccess,htaccess,伪静态,规则,设置,方法,SEO" />
+    <meta name="Description" content="利用.htaccess文件可以很好的进行站点伪静态，并且形成的目标地址与真正的静态页面几乎一模一样，如abc.html等，伪静态可以非常好的结合SEO" />
+    <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+    <link href="../assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">网页工具大全</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html" title="htaccess在线编辑生成器">.HTACCESS文件在线生成</a></li>
+                    <li><a href="introduce.html" title="htaccess文件介绍">文件介绍</a></li>
+                    <li><a href="guide.html" title="htaccess用法大全">用法大全</a></li>
+                    <li><a href="redirect.html" title="htaccess文件中的301重定向">301重定向</a></li>
+                    <li><a href="error.html" title="htaccess自定义404等错误页面">自定义错误</a></li>
+                    <li class="active"><a href="rewrite.html" title="使用htaccess文件伪静态">伪静态</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://usite.pub/index.php" title="免费空间" target="_blank">免费空间</a></li>
+                    <li><a href="https://github.com/doudoudzj/tool.uinote.com" target="_blank">源码</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h2 class="text-center">htaccess 伪静态的规则</h2>
+        <hr />
+        <p>利用htaccess文件可以很好的进行站点伪静态，并且形成的目标地址与真正的静态页面几乎一模一样，如abc.html等，伪静态可以非常好的结合SEO来提高站点的排名，并且也能给人一种稳定的印象。</p>
+        <p>由于伪静态必须要完全根据不同的站点进行不同的设置，因此，我们仅能简单介绍其原理，给出几个常用程序的示例：</p>
+        <p>若要通过<a href="index.html">htaccess使用伪静态</a>，则必须空间商支持Rewrite模块，该模块负责URL的重写。否则即便是设置好了，也无法使用，并且还有可能出现500错误。</p>
+        <p><b>下面是Discuz的伪静态设置文本：</b></p>
+        <p class="alert alert-info">
+            # 将 RewriteEngine 模式打开
+            <br />RewriteEngine On
+            <br /># Rewrite 系统规则请勿修改
+            <br />RewriteRule ^archiver/((fid|tid)-[0-9]+\.html)$ archiver/index.php?$1
+            <br />RewriteRule ^forum-([0-9]+)-([0-9]+)\.html$ forumdisplay.php?fid=$1&page=$2
+            <br />RewriteRule ^thread-([0-9]+)-([0-9]+)-([0-9]+)\.html$ viewthread.php?tid=$1&extra=$3&page=$2
+            <br />RewriteRule ^space-(username|uid)-(.+)\.html$ space.php?$1=$2
+            <br />RewriteRule ^tag-(.+)\.html$
+            tag.php?name=$1
+        </p>
+        <p><b>以下是PHPWind的伪静态设置文本：<IFMODULE mod_rewrite.c> </b></p>
+        <p class="alert alert-info">
+            RewriteEngine On
+            <br />RewriteBase /
+            <br />RewriteRule ^(.*)-htm-(.*)$ $1.php?$2
+            <br />RewriteRule ^(.*)simple/([a-z0-9\_]+\.html)$ $1/simple/index.php?$2
+        </p>
+        <p>此外，还有很多种不同的规则，如果想制定出适用于自己站点的伪静态规则，必须熟悉网站结构和正则表达式。</p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <span>&copy; 2019 <a href="https://github.com/doudoudzj" target="blank">doudoudzj</a></span>
+                <span class="pull-right">Powered by <a href="https://crogram.com" target="_blank">Crogram</a></span>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

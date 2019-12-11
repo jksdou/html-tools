@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>.htaccess 301重定向的实现</title>
+    <meta name="Keywords" content=".htaccess,htaccess,301,重定向,301跳转,302" />
+    <meta name="Description" content="通过htaccess文件实现网页的301重定向跳转，在很多情况下，网站都需要进行301或302重定向，其中一个为永久重定向，一个为临时重定向。" />
+    <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">网页工具大全</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html" title="htaccess在线编辑生成器">.HTACCESS文件在线生成</a></li>
+                    <li><a href="introduce.html" title="htaccess文件介绍">文件介绍</a></li>
+                    <li><a href="guide.html" title="htaccess用法大全">用法大全</a></li>
+                    <li class="active"><a href="redirect.html" title="htaccess文件中的301重定向">301重定向</a></li>
+                    <li><a href="error.html" title="htaccess自定义404等错误页面">自定义错误</a></li>
+                    <li><a href="rewrite.html" title="使用htaccess文件伪静态">伪静态</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://usite.pub/index.php" title="免费空间" target="_blank">免费空间</a></li>
+                    <li><a href="https://github.com/doudoudzj/tool.uinote.com" target="_blank">源码</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <h2 class="text-center">通过.htaccess实现301重定向</h2>
+        <hr />
+        <p>在很多情况下，网站都需要进行301或302重定向，其中一个为永久重定向，一个为临时重定向。
+            比如网站整个更换了域名，比如网站结构或目录发生了移动，比如需要将某个域名上的文件迁移到另外的域上等等。</p>
+        <p>有时候这种重定向对SEO或者PR值的传递是非常有效的。一般我们有几种途径
+            <a href="index.html">制作一个.htaccess文件</a>，比如自己手动编辑，好处是非常灵活、功能强大，但坏处是很容易出错，我们强烈建议用本站的工具自动生成这个文件；
+            另一种途径是通过空间里的控制面板进行自动编辑，这种方法比较死板，但不会因为人为原因出错，除非设置错了。
+        </p>
+        <p>比如CPanel控制面板中，在Domain&gt;Redirects里面，直接选择相应的选项即可。下面我们来详细讨论一下如何手动编辑这个.htaccess文件：</p>
+        <p>务必注意：在编辑之前请备份原来的htaccess文件，以免造成损失。</p>
+        <p>1、出于SEO考虑，将uinote.com重定向至www.uinote.com。本站就使用了这种重定向的方法避免页面权重分散。</p>
+        <p>一旦选择了带WWW的为主域名，今后就不要随意更改，方法如下：</p>
+        <p class="alert alert-info">RewriteEngine On<br />RewriteCond %{HTTP_HOST} !^www.uinote.com$ [NC]
+            <br />RewriteRule ^(.*)$
+            http://www.uinote.com/$1 [L,R=301]
+        </p>
+        <p>上面这一句话是从反面来写的：如果域名不是带WWW的，就统一301跳转到带WWW的域名中去</p>
+        <p>2、如果需要将域名从www.uinote.com跳转到uinote.com，则可以使用一下代码：</p>
+        <p class="alert alert-info">RewriteEngine On <br />RewriteCond %{HTTP_HOST} !^uinote.com$ [NC] <br />RewriteRule
+            ^(.*)$
+            http://uinote.com/$1 [L,R=301]</p>
+        <p>3、如果需要变更域名，即将老域名换成全新的域名，但是网页内容与结构不变，则可以使用以下代码来实现：</p>
+        <p class="alert alert-info">RewriteEngine On <br />RewriteBase / <br />RewriteCond %{HTTP_HOST} !olddomain.com$
+            [NC]
+            <br />RewriteRule ^(.*)$ http://uinote.com/$1 [L,R=301]</p>
+        <p>如果是带WWW的域名间跳转，则以此类推，在域名前加上WWW即可。</p>
+        <p>一般来说，以上这些是网站建设过程中非常常用的几行代码。这些代码对Google非常适用，Google很快就会按照你的意愿将收录的网址改变过来，并且如果换了域名，还能保留以前域名的PR值。</p>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <span>&copy; 2019 <a href="https://github.com/doudoudzj" target="blank">doudoudzj</a></span>
+                <span class="pull-right">Powered by <a href="https://crogram.com" target="_blank">Crogram</a></span>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
