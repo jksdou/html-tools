@@ -1,0 +1,144 @@
+* {
+    border: 0px;
+    margin: 0 auto;
+    font-size: 13px;
+}
+
+a {
+    color: #0084C8;
+    text-decoration: none;
+}
+
+body {
+    text-align: center;
+    font-family: Courier;
+    font-size: 13px;
+    background-color: #F8F8F8;
+}
+
+body,
+html {
+    font-family: arial, sans-serif;
+    font-size: 11pt;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#body-wrapper {
+    width: 100%;
+}
+
+#header {
+    width: 100%;
+    height: 40px;
+    background: #4d4d4d;
+    color: white;
+}
+
+#logo {
+    height: 32px;
+    margin: 4px 10px;
+    border: none;
+}
+
+/* Content Wrapper */
+#content-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
+    text-align: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* CopyRight */
+#copyright-wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0 auto;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: 13px;
+    background-color: #0084c8;
+}
+
+#copyright {
+    padding-left: 18px;
+    text-align: left;
+}
+
+#copyright-link {
+    list-style: none;
+    padding: 0px;
+    margin-left: 0px;
+}
+
+#copyright-link a {
+    color: #FFFFFF;
+}
+
+#copyright-link a:hover {
+    text-decoration: underline;
+}
+
+#copyright-link li {
+    float: left;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-bottom: 7px;
+    border-right: 1px solid white;
+    height: 15px;
+    line-height: 15px;
+}
+
+#copyright-link li.last {
+    border: 0px;
+}
+
+#copyright-text {
+    margin-top: 18px;
+    clear: both;
+}
+
+/* Common Style */
+.courier {
+    font-family: Courier;
+}
+
+.gray {
+    color: #CCCCCC;
+}
+
+.blue {
+    color: #0000CC;
+}
+
+.red {
+    color: #FF0000;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.clear {
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
