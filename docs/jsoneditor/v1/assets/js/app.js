@@ -85,10 +85,7 @@ jsoneditor.util.validate = function (jsonString) {
     } catch (err) {
         message = '<pre class="error">' + err.toString() + '</pre>';
         if (typeof (jsonlint) != 'undefined') {
-            message +=
-                '<div id="by-jsonlint">由 <a class="error" href="http://zaach.github.com/jsonlint/" target="_blank">' +
-                'JSONLint' +
-                '</a> 提供验证.</div>';
+            message += '<div id="by-jsonlint">由JSONLint提供验证.</div>';
         }
     }
 
@@ -6627,14 +6624,15 @@ app.load = function () {
         var json = {
             "name": "JSON 在线编辑器",
             "url": "https://html-tools.pages.dev/jsoneditor/v1",
-            "page": 88,
             "isNonProfit": true,
+            "organization": "Crogram,Inc.",
+            "number": 1234567890,
             "address": {
+                "country": "中国",
+                "city": "上海市",
                 "street": "杨浦区",
-                "city": "上海",
-                "country": "中国"
             },
-            "links": [{
+            "array": [{
                 "name": "Google",
                 "url": "http://www.google.com"
             }, {
@@ -6642,7 +6640,7 @@ app.load = function () {
                 "url": "http://www.baidu.com"
             }, {
                 "name": "Crogram",
-                "url": "https://www.crogram.com"
+                "url": "https://www.crogram.org"
             }]
         };
 
@@ -6772,8 +6770,6 @@ app.openCallback = function (err, data) {
         app.notify.showError(err);
     }
 };
-
-
 
 /**
  * Open a file explorer to save the file.
