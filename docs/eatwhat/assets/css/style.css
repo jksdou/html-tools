@@ -1,0 +1,131 @@
+html {
+    overflow: hidden;
+    height: 100%
+}
+
+body {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #eee url(../img/bg.jpg);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    overflow: hidden;
+}
+
+.logo {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
+    background-color: #e9e9e9
+}
+
+.logo img {
+    width: 100%;
+    height: 100%
+}
+
+#wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -250px;
+    width: 500px;
+    height: 120px;
+    text-align: center
+}
+
+.btn {
+    display: inline-block;
+    padding: 0 1em;
+    outline: 0;
+    border: 3px solid #ddd;
+    border-radius: 25px;
+    background: rgba(0, 0, 0, .55);
+    color: #fff;
+    vertical-align: middle;
+    font-size: 19px;
+    font-family: "Microsoft YaHei";
+    line-height: 2;
+    cursor: pointer;
+    transition: .5s;
+    -webkit-appearance: none
+}
+
+#start:hover {
+    border: 3px solid #ccc;
+    background: rgba(0, 0, 0, .7)
+}
+
+#cfg {
+    color: #666;
+    text-shadow: 1px 1px 1px #eee;
+    font-size: 12px;
+    cursor: pointer
+}
+
+.temp {
+    position: absolute;
+    z-index: -1;
+    color: #777
+}
+
+#popbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -140px;
+    margin-left: -210px;
+    padding: 0 10px;
+    width: 400px;
+    height: 280px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    background: #fff;
+    -webkit-box-shadow: 0 0 22px #333, inset 0 -3px 7px #ddd;
+    -moz-box-shadow: 0 0 22px #333, inset 0 -3px 7px #ddd;
+    box-shadow: 0 0 22px #333, inset 0 -3px 7px #ddd
+}
+
+#ok {
+    float: right;
+    margin: -3px 0 0;
+    width: 50px;
+    height: 22px;
+    color: #666;
+    cursor: pointer
+}
+
+.copyright {
+    position: absolute;
+    bottom: 0;
+    padding: 10px .5%;
+    width: 99%;
+    background-color: #e9e9e9;
+    color: #777;
+    text-align: center;
+    font-size: 13px
+}
+
+.copyright p {
+    margin-bottom: 10px;
+    padding: 0
+}
+
+.copyright span.cp {
+    opacity: .65
+}
+
+.copyright a {
+    color: #777;
+    text-decoration: none
+}
+
+.copyright a:hover {
+    text-decoration: underline
+}
