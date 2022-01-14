@@ -39,6 +39,10 @@ body {
     text-align: center
 }
 
+#what {
+    color: #FF9733;
+}
+
 .btn {
     display: inline-block;
     padding: 0 1em;
