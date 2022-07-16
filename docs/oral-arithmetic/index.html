@@ -1,0 +1,690 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>口算生成器</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        body,
+        input,
+        select {
+            font-size: 14px;
+            font-family: "宋体", tahoma, arial;
+        }
+        .section {
+            width: 750px;
+            margin: 0 auto;
+        }
+        .section.header {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bolder;
+        }
+
+        #tab {
+            height: 50px;
+            color: red;
+            border: 1px solid gray;
+            font-weight: bolder;
+        }
+
+        #tab span {
+            display: inline-block;
+            width: 372px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        ul li.colmode {
+            float: left;
+            width: 200px;
+            font-size: 14px;
+            margin: 0 0;
+            padding: 0;
+            height: 20px;
+            list-style-type: none;
+        }
+
+        ul li {
+            float: left;
+            width: 150px;
+            font-size: 14px;
+            margin: 0 0;
+            padding: 0;
+            height: 20px;
+            list-style-type: none;
+        }
+
+        #tab .tab {
+            color: yellow;
+            background-color: #999;
+        }
+
+        #ct div {
+            width: 750px;
+            height: 120px;
+            margin: 0 0;
+            border: 1px solid blue;
+            display: none;
+        }
+
+        #ct .ct {
+            display: block;
+            float: center;
+        }
+
+        #act div {
+            width: 750px;
+            height: 30px;
+            margin: 0 0;
+            border: 1px solid blue;
+            display: none;
+        }
+
+        #act .act {
+            display: block;
+            float: center;
+        }
+
+        table {
+            table-layout: fixed;
+            empty-cells: show;
+            margin: auto auto;
+            page-break-after: always;
+        }
+
+        td {
+            height: 80px;
+            width: 150px;
+            text-align: "left";
+            align: "left";
+            font-size: 24px;
+            font-family: "宋体", arial;
+        }
+
+        @media print {
+            @page print_section {
+                size: 210mm 297mm;
+                margin: 10mm 10mm 5mm 5mm;
+            }
+
+            div.print_section {
+                page: print_section;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section header" >口算生成器</div>
+    <div class="section" id="tab" align="center">
+        <span class="tab">按列选模式生成</span>
+        <span>按模式数量混合生成</span>
+    </div>
+    <div class="section" id="ct" align="center">
+        <div class="ct">
+            <ul>
+                <li class="colmode">
+                    第1列: <select id="col1type"></select>
+                </li>
+                <li class="colmode">
+                    第2列: <select id="col2type"></select>
+                </li>
+                <li class="colmode">
+                    第3列: <select id="col3type"></select>
+                </li>
+                <li class="colmode">
+                    第4列: <select id="col4type"></select>
+                </li>
+                <li class="colmode">
+                    第5列: <select id="col5type"></select>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul id="mode_option_list"> </ul>
+        </div>
+    </div>
+    <div id="act" align="center">
+        <div class="act" align="center">
+            <button onclick="generate()">重新生成</button>
+            <input type="text" value="1" id="pages" size="2" />份
+            <button onclick="printme()">打印习题</button>
+            <button onclick="saveasword()">另存为word</button>
+            <!-- <button onclick="saveaspdf()">另存为pdf</button> -->
+            <label><input type="checkbox" id="show_answer_cb" value="answer" onclick="show_issues()" />显示答案</label>
+        </div>
+    </div>
+
+    <div id="tabdiv" class="print_section" align="center" width="100%"></div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jQuery.print.js"></script>
+    <script type="text/javascript" src="js/jquery.base64.js"></script>
+    <script type="text/javascript" src="js/libs/FileSaver/FileSaver.min.js"></script>
+
+    <!-- <script type="text/javascript" src="js/libs/jsPDF/jspdf.min.js"></script>
+    <script type="text/javascript" src="js/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script type="text/javascript" src="js/pdfmake/pdfmake.js"></script>
+    <script type="text/javascript" src="js/pdfmake/vfs_fonts.js"></script> -->
+
+    <script type="text/javascript" src="js/tableExport.js"></script>
+
+    <script type="text/javascript">
+        var modes = [
+            ["add_1_1", "一位数加一位数"],
+            ["addc_2_2", "两位数进位加法"],
+            ["add_2_2", "两位数不进位加"],
+            ["subc_2_2", "两位数退位减法"],
+            ["sub_2_2", "两位数不退位减"],
+            ["add_1_2", "一位数加两位数"],
+            ["add_2_1", "两位数加一位数"],
+            ["sub_2_1", "两位数减一位数"],
+            ["mul_1_1", "一位数乘一位数"],
+            ["addmul_2_1_1", "两位数加一位数乘"],
+            ["muladd_1_1_2", "一位数乘加两位数"],
+            ["mulsub_1_1_2", "一位数乘减两位数"],
+            ["submul_2_1_1", "两位数减一位数乘"],
+            ["sub9", "减数个位为9"],
+            ["sub012", "减数个位为012"],
+            ["add012", "加数个位为012"],
+            ["addn_2_2", "特殊非进位加"],
+            ["wrong", "历史错题"],
+        ];
+
+        var wrong_issues = [
+            [1, 46, '-', 31, 15],
+            [1, 43, '+', 40, 83],
+            [1, 27, '+', 30, 57],
+            [1, 49, '+', 30, 79],
+            [1, 56, '-', 21, 35],
+            [1, 97, '-', 59, 38],
+            [2, 6, 'x', 5, '-', 29, 1],
+            [1, 76, '-', 59, 17],
+            [2, 8, 'x', 6, '-', 12, 36],
+            [2, 45, '+', 2, 'x', 6, 57],
+            [2, 42, '+', 2, 'x', 3, 48],
+            [1, 63, '+', 10, 73],
+            [1, 62, '+', 16, 78]
+        ];
+
+        var current_wrong = 0;
+
+        /* Generate integer that in [m,n], if m > n return 0 */
+        function rand(m, n) {
+            if (m > n) {
+                return 0;
+            }
+            return Math.round(Math.random() * (n - m) + m);
+        }
+
+        /* randomly generate one issue of give type */
+        function generate_issue(type) {
+            var i, j;
+
+            var issue = new Object();
+
+            // default 1 operator
+            issue.op_n = 1;
+            issue.op = new Array();
+            issue.opr = new Array();
+
+            switch (type) {
+                case 'add_1_1':
+                    i = rand(1, 9);
+                    j = rand(1, 9);
+                    issue.opr[0] = i;
+                    issue.op[0] = '+';
+                    issue.opr[1] = j;
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'addc_2_2':
+                    i = rand(1, 7);
+                    j = rand(1, 9);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '+';
+                    issue.opr[1] = rand(1, 8 - i) * 10 + rand(10 - j, 9);
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'add_2_2':
+                    i = rand(1, 8);
+                    j = rand(0, 9);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '+';
+                    issue.opr[1] = rand(1, 9 - i) * 10 + rand(0, 9 - j);
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'subc_2_2':
+                    i = rand(2, 9);
+                    j = rand(0, 8);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '-';
+                    issue.opr[1] = rand(1, i - 1) * 10 + rand(j + 1, 9);
+                    issue.result = issue.opr[0] - issue.opr[1];
+                    break;
+                case 'sub_2_2':
+                    i = rand(1, 9);
+                    j = rand(0, 9);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '-';
+                    issue.opr[1] = rand(1, i) * 10 + rand(0, j);
+                    issue.result = issue.opr[0] - issue.opr[1];
+                    break;
+                case 'add_2_1':
+                    i = rand(1, 9);
+                    j = rand(0, 9);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '+';
+                    issue.opr[1] = (i < 9) ? rand(0, 9) : rand(0, 9 - j);
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'add_1_2':
+                    i = rand(1, 9);
+                    j = rand(1, 9);
+                    issue.opr[0] = i;
+                    issue.op[0] = '+';
+                    issue.opr[1] = (j == 9) ? j * 10 + rand(0, 9 - i) : j * 10 + rand(0, 9);
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'sub_2_1':
+                    i = rand(1, 9);
+                    j = rand(0, 9);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '-';
+                    issue.opr[1] = rand(0, 9);
+                    issue.result = issue.opr[0] - issue.opr[1];
+                    break;
+                case 'mul_1_1':
+                    i = rand(1, 9);
+                    j = rand(1, 9);
+                    issue.opr[0] = i;
+                    issue.op[0] = 'x';
+                    issue.opr[1] = j;
+                    issue.result = issue.opr[0] * issue.opr[1];
+                    break;
+                case 'addmul_2_1_1':
+                    i = rand(1, 99);
+                    j = rand(1, 9);
+                    k = rand(1, 9);
+                    issue.op_n = 2;
+                    issue.opr[0] = i;
+                    issue.op[0] = '+';
+                    issue.opr[1] = j;
+                    issue.op[1] = 'x';
+                    issue.opr[2] = k;
+                    issue.result = issue.opr[0] + issue.opr[1] * issue.opr[2];
+                    break;
+                case 'submul_2_1_1':
+                    j = rand(1, 9);
+                    k = rand(1, 9);
+                    i = rand(j * k, 100);
+                    issue.op_n = 2;
+                    issue.opr[0] = i;
+                    issue.op[0] = '-';
+                    issue.opr[1] = j;
+                    issue.op[1] = 'x';
+                    issue.opr[2] = k;
+                    issue.result = issue.opr[0] - issue.opr[1] * issue.opr[2];
+                    break;
+                case 'muladd_1_1_2':
+                    i = rand(1, 9);
+                    j = rand(1, 9);
+                    k = rand(1, 99);
+                    issue.op_n = 2;
+                    issue.opr[0] = i;
+                    issue.op[0] = 'x';
+                    issue.opr[1] = j;
+                    issue.op[1] = '+';
+                    issue.opr[2] = k;
+                    issue.result = issue.opr[0] * issue.opr[1] + issue.opr[2];
+                    break;
+                case 'mulsub_1_1_2':
+                    i = rand(4, 9);
+                    j = rand(4, 9);
+                    k = rand(1, i * j);
+                    issue.op_n = 2;
+                    issue.opr[0] = i;
+                    issue.op[0] = 'x';
+                    issue.opr[1] = j;
+                    issue.op[1] = '-';
+                    issue.opr[2] = k;
+                    issue.result = issue.opr[0] * issue.opr[1] - issue.opr[2];
+                    break;
+                case 'sub9':
+                    j = rand(1, 8);
+                    i = rand(j + 1, 9);
+                    issue.opr[0] = i * 10 + rand(0, 9);
+                    issue.op[0] = '-';
+                    issue.opr[1] = j * 10 + 9;
+                    issue.result = issue.opr[0] - issue.opr[1];
+                    break;
+                case 'sub012':
+                    i = rand(2, 9);
+                    j = rand(0, 2);
+                    issue.opr[0] = i * 10 + rand(5, 9);
+                    issue.op[0] = '-';
+                    issue.opr[1] = rand(0, i - 1) * 10 + j;
+                    issue.result = issue.opr[0] - issue.opr[1];
+                    break;
+                case 'add012':
+                    i = rand(1, 8);
+                    j = rand(1, 9 - i);
+                    k = rand(0, 2);
+                    issue.opr[0] = i * 10 + rand(0, 9 - k);
+                    issue.op[0] = '+';
+                    issue.opr[1] = j * 10 + k;
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'mix_2_1':
+                    i = rand(0, 4) * 2;
+                    j = (i + 10) / 2;
+                    issue.opr[0] = j * 10 + i;
+                    issue.op[0] = '+';
+                    issue.opr[1] = rand(1, (9 - j)) * 10 + j;
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'addn_2_2':
+                    /* add with no carry but at least a[2] + b[1] >= 10 
+                       or a[1] + b[2] >= 10 to test whether it will confuse her*/
+                    do {
+                        i = rand(1, 8);
+                        j = rand(0, 9);
+                        k = rand(0, 9 - j);
+                        l = rand(1, 9 - i);
+                    } while (i + k < 10 && j + l < 10);
+                    issue.opr[0] = i * 10 + j;
+                    issue.op[0] = '+';
+                    issue.opr[1] = l * 10 + k;
+                    issue.result = issue.opr[0] + issue.opr[1];
+                    break;
+                case 'wrong':
+                    i = current_wrong;
+                    j = 0;
+                    /* op number */
+                    k = wrong_issues[i][j++];
+                    issue.op_n = k;
+                    issue.opr[0] = wrong_issues[i][j++];
+                    issue.op[0] = wrong_issues[i][j++];
+                    issue.opr[1] = wrong_issues[i][j++];
+                    if (k == 2) {
+                        issue.op[1] = wrong_issues[i][j++];
+                        issue.opr[2] = wrong_issues[i][j++];
+                    }
+                    issue.result = wrong_issues[i][j];
+                    current_wrong++;
+                    if (current_wrong == wrong_issues.length) {
+                        current_wrong = 0;
+                    }
+                    break;
+                default:
+                    alert("unknown type=" + type);
+            }
+
+            return issue;
+        }
+
+        /* genrate n issues of given type */
+        function generate_issues(type, n) {
+            var issues = new Array(n);
+
+            for (var i = 0; i < n; i++) {
+                issues[i] = generate_issue(type);
+            }
+
+            return issues;
+        }
+
+        /* store all generated issues. Maximum pages * cells per page/table */
+        var MAX_PAGES = 20;
+        var CELLS_PER_PAGE = 50;
+        var cells = new Array(MAX_PAGES * CELLS_PER_PAGE);
+
+        /* which op mode we are in:
+           0: specify type for each column
+           1: specify quantity of each type then mix
+        */
+        var current_mode = 0;
+        /* how many page generated, user can choose between 1-MAX_PAGES */
+        var old_total_pages = 0;
+        var total_pages = 0;
+
+        function print_issue(issue, show_answer) {
+            var s = '<td> ';
+            s += issue.opr[0];
+            s += issue.op[0];
+            s += issue.opr[1];
+            if (issue.op_n == 2) {
+                s += issue.op[1];
+                s += issue.opr[2];
+            }
+            s += '=';
+            if (show_answer)
+                s += issue.result;
+            s += '</td>'
+            return s;
+        }
+
+        function create_table(p) {
+            var tab;
+
+            tab = document.createElement("table");
+            tab.innerHTML = '<table class="table"></table>';
+            tab.setAttribute("id", "mytab" + p);
+            for (var r = 0; r < 11; r++) {
+                tr = tab.insertRow(r);
+                if (r == 0) {
+                    tr.innerHTML = '<tr> <td></td> \
+                           <td colspan="1" align="center">姓名：</td> \
+                           <td colspan="1" align="center">班级：</td> \
+                           <td colspan="1" align="center">时间：</td> \
+                           <td></td> </tr>';
+                } else {
+                    for (var c = 0; c < 5; c++) {
+                        tr.insertCell(c);
+                    }
+                }
+            }
+
+            var d = document.getElementById("tabdiv");
+            d.appendChild(tab);
+
+            return tab;
+        }
+
+        function show_issues() {
+            var p, r, c;
+            var tab, tr, td;
+
+            var show_answer = document.getElementById("show_answer_cb").checked;
+
+            for (p = 0; p < total_pages; p++) {
+                tab = document.getElementById("mytab" + p);
+                if (!tab) {
+                    tab = create_table(p);
+                }
+
+                for (r = 0; r < 10; r++) {
+                    tr = tab.rows[r + 1];
+                    for (c = 0; c < 5; c++) {
+                        td = tr.cells[c];
+                        td.innerHTML = print_issue(cells[p * CELLS_PER_PAGE + c * 10 + r], show_answer);
+                    }
+                }
+            }
+
+            if (old_total_pages > total_pages) {
+                var d = document.getElementById("tabdiv");
+                for (p = old_total_pages - 1; p >= total_pages; p--) {
+                    tab = document.getElementById("mytab" + p);
+                    if (tab) {
+                        d.removeChild(tab);
+                        delete tab;
+                    }
+                }
+            }
+            old_total_pages = total_pages;
+        }
+
+        function generate_mode1() {
+            var cols = ["col1type", "col2type", "col3type", "col4type", "col5type"];
+            var mode, issues, i, j;
+
+            for (var p = 0; p < total_pages; p++) {
+                for (i = 0; i < 5; i++) {
+                    mode = document.getElementById(cols[i]).value;
+                    issues = generate_issues(mode, 10);
+
+                    for (j = 0; j < 10; j++) {
+                        cells[p * CELLS_PER_PAGE + i * 10 + j] = issues[j];
+                    }
+                }
+            }
+
+            show_issues();
+        }
+
+        function generate_mode2() {
+            var i, j, k, p;
+            var mode;
+            var input;
+            var issues;
+            var current_cells = new Array(CELLS_PER_PAGE);
+
+            var n = new Array(modes.length);
+            var total = 0;
+
+            for (i = 0; i < modes.length; i++) {
+                input = document.getElementById(modes[i][0]);
+                if (input)
+                    n[i] = parseInt(input.value);
+                else
+                    n[i] = 0;
+                total += n[i];
+            }
+
+            if (total != 50) {
+                alert("总题数应该是50，现在是" + total);
+                return;
+            }
+
+            for (p = 0; p < total_pages; p++) {
+                k = 0;
+                for (i = 0; i < modes.length; i++) {
+                    if (n[i] > 0) {
+                        issues = generate_issues(modes[i][0], n[i]);
+                        for (j = 0; j < n[i]; j++) {
+                            current_cells[k] = issues[j];
+                            k++;
+                        }
+                    }
+                }
+                // random sort
+                current_cells = current_cells.sort(function (a, b) {
+                    return Math.random() > .5 ? -1 : 1;
+                });
+                // store in global array 
+                for (i = 0; i < CELLS_PER_PAGE; i++)
+                    cells[p * CELLS_PER_PAGE + i] = current_cells[i];
+            }
+
+            show_issues();
+        }
+
+        function generate() {
+            var pages = document.getElementById("pages").value;
+
+            if (isNaN(pages) || pages < 1 || pages > MAX_PAGES) {
+                alert("无效的份数设置，必须是1-20之间的数字!" + pages);
+                return;
+            }
+
+            old_total_pages = total_pages;
+            total_pages = pages;
+
+            if (current_mode == 0)
+                generate_mode1();
+            else
+                generate_mode2();
+
+        }
+
+        function changetab() {
+            var tabs = document.getElementById("tab").getElementsByTagName("span");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].onclick = tab;
+            }
+        }
+
+        function tab() {
+            var tabs = document.getElementById("tab").getElementsByTagName("span");
+            var cts = document.getElementById("ct").getElementsByTagName("div");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].className = "";
+                cts[i].className = "";
+                if (tabs[i] == this) {
+                    tabs[i].className = "tab";
+                    cts[i].className = "ct";
+                    current_mode = i;
+                }
+            }
+        }
+
+        /* fill in the mode lists */
+        function create_options() {
+            var i, j;
+            var select, select_html;
+
+            var list, li;
+
+            for (i = 1; i < 6; i++) {
+                select = document.getElementById("col" + i + "type");
+                for (j = 0; j < modes.length; j++)
+                    select.options.add(new Option(modes[j][1], modes[j][0]));
+            }
+
+            list = document.getElementById("mode_option_list");
+            for (i = 0; i < modes.length; i++) {
+                li = document.createElement("li");
+                li.innerHTML = '<li class="mixmode">' + modes[i][1] + '<input id="' +
+                    modes[i][0] + '" type="text" value="0" size="2"/> </li>';
+                list.appendChild(li);
+            }
+        }
+
+        window.onload = function () {
+            changetab();
+            create_options();
+            generate();
+        }
+
+        function printme() {
+            $("#tabdiv").print();
+        }
+
+        function saveasword() {
+            $("table").tableExport({
+                type: 'doc',
+                escape: 'false',
+                excelstyles: ['height', 'width', 'text-align', 'font-size', 'align']
+            });
+        }
+
+        function saveaspdf() {
+            $("table").tableExport({
+                type: 'pdf',
+                fileName: 'issues',
+                pdfmake: {
+                    enabled: true
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
