@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="description" content="删除空格、换行回车符"/>
+        <meta name="keywords" content="删除空格，删除回车，删除换行"/>
+        <title>文本删除空格、回车和换行符</title>
+        <script>
+            function killBr(obj, res) {
+                var c = document.getElementById(obj).value;
+                document.getElementById(res).value = document.getElementById("enTocn").checked ? repSign(iGetInnerText(c)) : iGetInnerText(c);
+            }
+            // killBr
+            function empty(obj) {
+                document.getElementById(obj).value = "";
+            }
+            // empty
+            function iGetInnerText(testStr) {
+                var resultStr = testStr.replace(/\ +/g, "");
+                //去掉空格
+                resultStr = testStr.replace(/<\/?[^>]*>/g, '');
+                //去除HTML tag
+                resultStr = testStr.replace(/&nbsp;/ig, '');
+                //去掉&nbsp;
+                resultStr = testStr.replace(/[ | ]*\n/g, '\n');
+                //去除行尾空白
+                resultStr = testStr.replace(/[ ]/g, "");
+                //去掉空格
+                resultStr = testStr.replace(/[\r\n]/g, "");
+                //去掉回车换行
+                return resultStr;
+            }
+            // iGetInnerText
+            function repSign(s) {
+                s = s.replace(/([\u4E00-\u9FA5]|^|\n|\r)([\,\.\?\!])(?=[\u4E00-\u9FA5]|$|\n|\r)/g, function(u, v, w, x) {
+                    sign = {
+                        ',': '，',
+                        '.': '。',
+                        '?': '？',
+                        '!': '！',
+                        '(': '（',
+                        ')': '）',
+                        ';': '；',
+                        ':': '：'
+                    };
+                    return sign[w] ? v + sign[w] : u;
+                });
+                return s;
+            }
+            function copy() {
+                document.getElementById("result").select();
+                document.execCommand("copy");
+            }
+        </script>
+        <style>
+            #source,#result {
+                width: 98%;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>文本删除空格、回车和换行</h3>
+        <p>原始文本（在此输入需要删除的原始文本）</p>
+        <textarea id="source" rows="15"></textarea>
+        <br/>
+        <p>
+            <a href="javaScript:killBr('source','result')">执行删除</a>
+            |     将英文标点符号转成中文标点符号<input type="checkbox" id="enTocn" checked />
+        </p>
+        <hr/>
+        <p>删除空格、回车后的文本</p>
+        <textarea id="result" rows="15"></textarea>
+        <p>
+            <a href="javaScript:copy();">复制结果</a>
+            |     <a href="javaScript:empty('source');empty('result');">清空原始文本、结果</a>
+        </p>
+        <p>此程序可把文本中的回车符、换行符、空格删除。</p>
+        <p>用途：在pdf中复制的文本，包含很多无用的空格、换行符。可用此程序删除，以得到干净文本。</p>
+    </body>
+</html>

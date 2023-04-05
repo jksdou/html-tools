@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="Keywords" content="批量删除空白行、注释行;软件著作权源码整理"/>
+        <meta name="description" content="批量删除空白行、注释行;软件著作权源码整理"/>
+        <title>批量删除空白行、注释行</title>
+        <script>
+            function run(obj) {
+                var v = document.getElementById(obj).value;
+                if (v == "") {
+                    alert("请输入要运行的代码内容");
+                    return false;
+                }
+                var temp = code.innerHTML;
+                // var temp2=temp.replace(/\/\/.+?/gm, '');
+                code.innerHTML = temp.replace(/^\s+|\s+$/gm, "");
+            }
+        </script>
+    </head>
+    <body>
+        <h3>批量删除空白行、注释行</h3>
+        <textarea id="code" style="width:99%" rows="30">求正则匹配空白行删除掉问题，
+一段文本内容，一行文字，直接回车的空一行隔一行空白行再写字匹配不到，这个空白行没有按下空格，没有按下tab键，纯空白行，就是匹配不到
+ 
+以下失败的的正则
+str=str.replace(/^[\n]$/g,"");  // 以行开头以行结束的行，匹配不到失败
+str=str.replace(/^[\r\n]$/g,"");  //加\r 还是失败
+ 
+str=str.replace(/[\n]/g,""); //去掉 \^\$ 这样的话 连有文字有东西的行，的换行符都没了，整个文章都成一行了
+还是匹配失败！
+ 
+str=str.replace(/^\s+$/g,""); //以空白开头 以空白结尾 也匹配失败！哎，
+ 
+求大神解决。。。上代码谢谢！
+    </textarea>
+        <div>
+            <input name="button" type="button" onclick="run('code')" value="运行代码">
+            <input name="button" type="button" onclick="document.getElementById('code').value='';" value="清空代码">
+        </div>
+    </body>
+</html>

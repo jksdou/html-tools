@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html class="ext-strict x-viewport">
+<title>JSON在线视图查看器(Online JSON Viewer)</title>
+<meta name="keywords" content="JSON在线视图查看器(Online JSON Viewer),JSON在线编辑器, JSON在线格式化工具, JSON验证工具, JSON Editor Onlin">
+<meta name="description" content="JSON在线视图查看器(Online JSON Viewer), JSON在线编辑器, JSON在线格式化工具, JSON验证工具, JSON Editor Online">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="static/js/component/jsonview/jsonview_files/ext-all.css">
+<script type="text/javascript" src="static/js/clipboard.min.js"></script>
+<script type="text/javascript" src="static/js/bignumber.min.js"></script>
+<script type="text/javascript" src="static/js/component/jsonview/jsonview_files/ext-base.js"></script>
+<script type="text/javascript" src="static/js/component/jsonview/jsonview_files/ext-all.js"></script>
+<style type="text/css" id="styleSheetIconCls">/* Ext.ux.iconCls */</style>
+<style type="text/css">.br0 {
+        COLOR: #009900
+    }
+
+    .st0 {
+        COLOR: #3366cc
+    }
+
+    .sy0 {
+        COLOR: #339933
+    }
+    .copy-success{
+        position: fixed;
+        z-index: 999999;
+        top: 50%;
+        left: 50%;
+        margin-left: -75px;
+        width: 200px;
+        background-color: rgba(0,0,0,.5);
+        color: #fff;
+        text-align: center;
+        display: none;
+        padding: 10px 0;
+    }
+    </style>
+<script>
+        window.onload = function () {
+            var oTxt = document.getElementById("edit");
+            oTxt.onkeydown = function (ev) {
+                var oEvent = ev || event;
+                if (oEvent.keyCode == 9) {
+                    if (oEvent.preventDefault) {
+                        oEvent.preventDefault();
+                    } else {
+                        window.event.returnValue = false;
+                    }
+                    oTxt.value += "    "; //这里放入了4个空格
+                }
+
+            }
+
+            var temp_str = sessionStorage.getItem('temp_str');
+            if (temp_str) {
+                document.getElementById("edit").value = temp_str;
+
+            }
+
+        }
+    </script>
+<script type="text/javascript" src="static/js/component/jsonview/jsonview_files/jsonviewercn_encode.js"></script>
+</head>
+<button id="copyTxt" style="height: 0;width: 0;overflow: hidden"></button>
+<div class="copy-success" id="copySuccess"></div>
+</div>
+</body>
+<div id="cpbtn"></div>
+</html>

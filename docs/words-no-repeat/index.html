@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>在线去重工具</title>
+        <meta name="keywords" content="在线去重工具,去重复,文本去重复,js去重复,java数组去重复,txt去重复">
+        <meta name="description" content="在线文本去重工具。">
+    </head>
+    <body>
+        <h1>在线去重工具</h1>
+        <h3>去除文本列表中的重复项,将列表内容放入文本框内，每行一条，点击去重按钮，即可得到无重复数据的列表。</h3>
+        <textarea id="list" style="width:80%;height:50%">你是一只狗
+123123
+你不是一只狗
+可以去重复
+你是一只狗
+www.test.com
+123123
+test
+123123
+去重复，只能一行
+可以去重复
+test
+</textarea>
+        <br/>
+        <input type="button" onclick="process()" value="去重处理"/>
+        <script type="text/javascript">
+            function unique(ary) {
+                var i = 0, gid = '_' + (+new Date) + Math.random(), objs = [], hash = {
+                    'string': {},
+                    'boolean': {},
+                    'number': {}
+                }, p, l = ary.length, ret = [];
+                for (; i < l; i++) {
+                    p = ary[i];
+                    if (p == null)
+                        continue;
+                    tp = typeof p;
+                    if (tp in hash) {
+                        if (!(p in hash[tp])) {
+                            hash[tp][p] = 1;
+                            ret.push(p);
+                        }
+                    } else {
+                        if (p[gid])
+                            continue;
+                        p[gid] = 1;
+                        objs.push(p);
+                        ret.push(p);
+                    }
+                }
+                for (i = 0,
+                l = objs.length; i < l; i++) {
+                    p = objs[i];
+                    p[gid] = undefined;
+                    delete p[gid];
+                }
+                return ret;
+            }
+
+            function process() {
+                list = document.getElementById('list');
+                arr = list.value.split('\n');
+                arr = unique(arr);
+                list.value = "";
+                for (key in arr) {
+                    list.value += arr[key] + '\n';
+                }
+                alert("处理完成！");
+            }
+        </script>
+    </body>
+</html>

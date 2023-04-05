@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8"/>
+        <title>xpath在线测试工具</title>
+        <style>
+            #source,#result {
+                width: 100%;
+                height: 400px;
+                border-radius: 4px;
+            }
+
+            textarea,input[type='text'] {
+                border: 1px solid #ccc;
+            }
+
+            a {
+                display: inline-block;
+                padding: 6px 12px;
+                border-radius: 3px;
+                margin-right: 20px;
+                border: 1px solid;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 400;
+                color: #fff;
+                background-color: #337ab7;
+                border-color: #2e6da4;
+                cursor: pointer;
+                user-select: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>xpath在线测试工具</h3>
+        <p>1.待匹配文本</p>
+        <textarea id="source" placeholder="在此输入待匹配文本"></textarea>
+        <p>2.XPATH表达式</p>
+        <input type="text" style="width: 400px;" id="textPattern" placeholder="在此输入XPATH达式">
+        <p></p>
+        <a onclick="return onMatch();">测试匹配</a>
+        <a onclick="return showDemo();">测试用例</a>
+        <a onclick="return reset();">清空</a>
+</p><p>匹配结果</p>
+<textarea id="result" readonly="readonly"></textarea>
+<script>
+    function $(id) {
+        return typeof id === 'string' ? document.getElementById(id) : id
+    }
+    function reset() {
+        $("source").value = ''
+        $("textPattern").value = ''
+        $("result").value = ''
+    }
+    function onMatch() {
+        var xmlstr = $("source").value;
+        var pattern = $("textPattern").value;
+
+        var xmldom = null;
+        var parser = new DOMParser()
+        xmldom = parser.parseFromString(xmlstr, "text/xml")
+        var result = xmldom.evaluate(pattern, xmldom.documentElement, null, XPathResult.ORDERED_NODE_ITETATOR_TYPE, null)
+        if (result !== null) {
+            var node = result.iterateNext()
+            while (node) {
+                console.log(node.innerHTML)
+                $("result").value = node.innerHTML
+                node = result.iterateNext()
+            }
+            //while
+        }
+        //if
+    }
+    //onMatch
+    function showDemo() {
+        $("source").value = '<webinfo>\n	<site dig="1">\n		<domain><![CDATA[http://sssss.com/]]></domain>\n		<title>LayUI前端社区</title>\n	</site>\n	<site >\n		<domain><![CDATA[http://www.bbbbbb.com/]]></domain>\n		<title>JSON在线解析工具</title>\n	</site>\n</webinfo>'
+        $("textPattern").value = '/webinfo//site[@dig=1]'
+    }
+</script>
+<br/>
+<br/>
+<div id="advertisement">
+    <script type="text/javascript" src="../myAd.js"></script>
+</div>
+<!--advertisement-->
+</body></html>
