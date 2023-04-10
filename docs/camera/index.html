@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no" />
+<meta name="description" content="HTML5摄像头,Access the desktop camera and video using HTML, JavaScript, and Canvas. The camera may be controlled using HTML5 and getUserMedia." />
+<meta name="description" content="HTML5摄像头,Camera and Video Control with HTML5" />
+<title>HTML5摄像头/Camera and Video Control with HTML5</title>
+<style>
+    video { border: 1px solid #ccc; display: block; margin: 0 0 20px 0; }
+    #canvas { margin-top: 20px; border: 1px solid #ccc; display: block; }
+</style>
+</head>
+<body>
+<h2>HTML5摄像头/Camera and Video Control with HTML5</h2>
+<div id="promoNode"></div>
+    <p>支持多个浏览器/Using Opera Next or Chrome Canary, Edge use this page to take your picture!</p>
+    <!--
+        Ideally these elements aren't created until it's confirmed that the
+        client supports video/camera, but for the sake of illustrating the
+        elements involved, they are created with markup (not JavaScript)
+    -->
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap" class="sexyButton">保存当前图片/Snap Photo</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script>
+        // Put event listeners into place
+        window.addEventListener("DOMContentLoaded", function() {
+            // Grab elements, create settings, etc.
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+            var mediaConfig =  { video: true };
+            var errBack = function(e) {
+                console.log('An error has occurred!', e)
+            };
+
+            // Put video listeners into place
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia(mediaConfig).then(function(stream) {
+                    //video.src = window.URL.createObjectURL(stream);
+                    video.srcObject = stream;
+                    video.play();
+                });
+            }
+
+            /* Legacy code below! */
+            else if(navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(mediaConfig, function(stream) {
+                    video.src = stream;
+                    video.play();
+                }, errBack);
+            } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+                navigator.webkitGetUserMedia(mediaConfig, function(stream){
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+                navigator.mozGetUserMedia(mediaConfig, function(stream){
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                }, errBack);
+            }
+
+            // Trigger photo take
+            document.getElementById('snap').addEventListener('click', function() {
+                context.drawImage(video, 0, 0, 640, 480);
+            });
+        }, false);
+    </script>
+</div>
+</main>
+</body>
+</html>
