@@ -999,6 +999,12 @@
                 height: 200px;
                 margin: auto;
             }
+            #getval {
+                width: 100%;
+                text-align: center;
+                height: 30px;
+                border: 1px solid #ddd;
+            }
             p {
                 text-align: center;
             }
@@ -1007,21 +1013,26 @@
     <body>
         <div id="qrcode"></div>
         <p>
-            输入待生成的值<br /><input type="text" id="getval"/>
+            输入待生成文本<br /><input type="text" id="getval" />
         </p>
         <p>
-            <button id="send">生成二维码</button>
+            <button id="send">生成</button>
+            <button id="clear">清除</button>
         </p>
         <script>
             window.onload = function() {
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                var qr = new QRCode(document.getElementById("qrcode"), {
                     // 设置宽高
+                    text: 'https://uiisc.org',
                     width: 200,
                     height: 200
                 });
-                qrcode.makeCode('https://uiisc.org');
                 document.getElementById("send").onclick = function() {
-                    qrcode.makeCode(document.getElementById("getval").value);
+                    qr.makeCode(document.getElementById("getval").value);
+                }
+                document.getElementById("clear").onclick = function() {
+                    qr.makeCode('');
+                    document.getElementById("getval").value = null;
                 }
             }
         </script>
