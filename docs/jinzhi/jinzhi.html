@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="Keywords" content="进制转换,任意进制互转,64进制数"/>
+        <meta name="Description" content="在线工具，一款支持任意进制数之间的互相转换，最大进制为64进制（局限具进制字符数量）。"/>
+        <title>在线任意进制转换 - 二进制 十进制 十六进制 六十四进制互相转换 </title>
+        <style type="text/css">
+            #advertisement {
+                overflow: hidden;
+            }
+
+            input {
+                width: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            if (window.attachEvent)
+                window.attachEvent("onload", sfHover);
+        </script>
+        <div>
+            <h3>在线任意进制转换工具</h3>
+            <ul>
+                <li>支持二进制、八进制、十进制、十六进制 六十四进制以内的任意数字互相转换。</li>
+                <li>支持六十四进制以内的任意进制的数字转任意进制，目前最大支持64位，受限于电脑键盘的数量，如果字母数量更多，可以支持更高的进制数，不过目前64位可以满足几乎所有场景。</li>
+            </ul>
+            <form action="" name="name_form" style="border: thin solid #A4AA04;padding:0 20px;">
+                <div>
+                    <div>
+                        <span>二&#12288;进&#12288;制：</span>
+                        <input type="text" id="bin_1" alt="二进制数" title="二进制数" value="10011110101110110100010"/>
+                    </div>
+                    <div>
+                        <span class='span strong'>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_1" alt="十进制数" title="十进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(2, 'bin_1', 10, 'ten_1');">2->10转换</button>
+                </div>
+                <hr/>
+                <div>
+                    <div>
+                        <span>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_2" alt="十进制数" title="十进制数" value="520.1314"/>
+                    </div>
+                    <div>
+                        <span>二&#12288;进&#12288;制：</span>
+                        <input type="text" id="bin_2" alt="二进制数" title="二进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(10, 'ten_2', 2, 'bin_2');">10->2转换</button>
+                    <hr/>
+                </div>
+                <div>
+                    <div>
+                        <span>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_3" alt="十进制数" title="十进制数" value="520.1314"/>
+                    </div>
+                    <div>
+                        <span class='span strong'>十六进制&#12288;：</span>
+                        <input type="text" id="ten_six_3" alt="十六进制数" title="十六进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(10, 'ten_3', 16, 'ten_six_3');">10->16转换</button>
+                    <hr/>
+                </div>
+                <div>
+                    <div>
+                        <span>十六进制&#12288;：</span>
+                        <input type="text" id="ten_six_4" alt="十六进制数" title="十六进制数" value="4f5da2"/>
+                    </div>
+                    <div>
+                        <span>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_4" alt="十进制数" title="十进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(16, 'ten_six_4', 10, 'ten_4');">16->10转换</button>
+                    <hr/>
+                </div>
+                <div>
+                    <div>
+                        <span>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_5" alt="十进制数" title="十进制数" value="520.1314"/>
+                    </div>
+                    <div>
+                        <span class='span strong'>六十四进制：</span>
+                        <input type="text" id="six_four_5" alt="六十四进制数" title="六十四进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(10, 'ten_5', 64, 'six_four_5');">10->64转换</button>
+                    <hr/>
+                </div>
+                <div>
+                    <div>
+                        <span>六十四进制：</span>
+                        <input type="text" id="six_four_6" alt="六十四进制数" title="六十四进制数" value="jRSy"/>
+                    </div>
+                    <div>
+                        <span>十&#12288;进&#12288;制：</span>
+                        <input type="text" id="ten_6" alt="十进制数" title="十进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert_c(64, 'six_four_6', 10, 'ten_6');">64->10转换</button>
+                    <hr/>
+                </div>
+                <div>
+                    <div>
+                        <select id="any_hex_in">
+                            <script>
+                                t = "";
+                                for (x = 2; x < 65; x++) {
+                                    t += "<option value=" + x + ">" + x + "</option>";
+                                }
+                                document.write(t);
+                            </script>
+                        </select>
+                        进制 <input type="text" id="any_input" alt="N进制数" title="N进制数" value=""/>
+                    </div>
+                    <div>
+                        <select id="any_hex_out">
+                            <script>
+                                t = "";
+                                for (x = 2; x < 65; x++) {
+                                    t += "<option value=" + x + ">" + x + "</option>";
+                                }
+                                document.write(t);
+                            </script>
+                        </select>
+                        进制
+		          		<input type="text" id="any_output" alt="N进制数" title="N进制数" value=""/>
+                    </div>
+                    <button type="button" onclick="convert('any_hex_in', 'any_input', 'any_hex_out', 'any_output');">N进制间转换</button>
+                </div>
+            </form>
+            <h4>关于进制转换 | Hex Convert</h4>
+            <ul>
+                <li>支持任意进制之间的转换，最大进制为64进制（局限具进制字符数量），目前进制字符序列为：0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@</li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="ga.js"></script>
+    </body>
+</html>

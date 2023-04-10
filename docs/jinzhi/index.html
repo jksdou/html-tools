@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" id="viewport" content="width = device-width, initial-scale = 1, minimum-scale = 1, maximum-scale = 1, user-scalable=no">
+        <meta name="description" content="在线进制转换工具,在线进制转换工具">
+        <meta name="keywords" content="在线进制转换工具">
+        <title>在线进制转换工具</title>
+        <script>
+            ss = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_@"
+            var s7nx = 10
+            function v10toX(n, m) {
+                m = String(m).replace(/ /gi, "")
+                if (m == "")
+                    return ""
+                if (parseInt(m) != m) {
+                    M("请输入整数！");
+                    return ""
+                }
+                var t = ""
+                var a = ss.substr(0, n)
+                while (m != 0) {
+                    var b = m % n
+                    t = a.charAt(b) + t
+                    m = (m - b) / n
+                }
+                return t
+            }
+
+            function vXto10(n, m) {
+                m = String(m).replace(/ /gi, "")
+                if (m == "")
+                    return ""
+                var a = ss.substr(0, n)
+                if (eval("m.replace(/[" + a + "]/gi,'')") != "") {
+                    M("请输入" + n + "进制数！");
+                    return ""
+                }
+                var t = 0
+                  , c = 1
+                for (var x = m.length - 1; x > -1; x--) {
+                    t += c * (a.indexOf(m.charAt(x)))
+                    c *= n
+                }
+                return t
+            }
+
+            function vXtoY(n, m, y) {
+                a = vXto10(n * 1, m)
+                if (a == "")
+                    return ""
+                a = v10toX(y, a)
+                return a
+            }
+        </script>
+    </head>
+    <body>
+        <h3>可以实现各类进制间的相互转换，二进制、十进制、八进制、十六进制以及各种自定义的进制之间的转换</h3>
+        <h4>
+            <a href="jinzhi.html">点击转换带小数进制</a>
+        </h4>
+        <form action="">
+            <table border="0" cellpadding="3" cellspacing="1" bgcolor="#C6D4E5" align="center">
+                <tr align="center">
+                    <td>
+                        <strong>请输入数据</strong>
+                    </td>
+                    <td>
+                        <strong>进制换算结果</strong>
+                    </td>
+                    <td>
+                        <strong>进制转换选项</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        十进制：<input type="text" name="t1_10">
+                    </td>
+                    <td>
+                        十六进制：<input type="text" name="t1_16" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t1_16.value=v10toX(16,t1_10.value)" value="10进制转16进制" name="button">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        十六进制：<input type="text" name="t2_16">
+                    </td>
+                    <td>
+                        十进制：<input type="text" name="t2_10" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t2_10.value=vXto10(16,t2_16.value)" value="16进制转10进制" name="button2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        十进制：<input type="text" name="t3_10">
+                    </td>
+                    <td>
+                        二进制：<input type="text" name="t3_2" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t3_2.value=v10toX(2,t3_10.value)" value="10进制转2进制" name="button2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        二进制：<input type="text" name="t4_2">
+                    </td>
+                    <td>
+                        十进制：<input type="text" name="t4_10" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t4_10.value=vXto10(2,t4_2.value)" value="2进制转10进制" name="button2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        十进制：<input type="text" name="t5_10">
+                    </td>
+                    <td>
+                        六十四进制：<input type="text" name="t5_64" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t5_64.value=v10toX(64,t5_10.value)" value="10进制转64进制" name="button2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        六十四进制：<input type="text" name="t6_64">
+                    </td>
+                    <td>
+                        十进制：<input type="text" name="t6_10" readonly>
+                    </td>
+                    <td>
+                        <input type="button" onClick="t6_10.value=vXto10(64,t6_64.value)" value="64进制转10进制" name="button2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="s7nx">
+                            <script>
+                                t = ""
+                                for (x = 2; x < 65; x++)
+                                    t += "<option value=" + x + ">" + x + "</option>"
+                                document.write(t)
+                            </script>
+                        </select>
+                        进制<input name=t7_x type=text id="t7_x">
+                    </td>
+                    <td>
+                        <select name="s7ny">
+                            <script>
+                                t = ""
+                                for (x = 2; x < 65; x++)
+                                    t += "<option value=" + x + ">" + x + "</option>"
+                                document.write(t)
+                            </script>
+                        </select>
+                        进制<input name=t7_y type=text id="t7_y" readonly>
+                    </td>
+                    <td>
+                        <input type=button onClick="t7_y.value=vXtoY(s7nx.value,t7_x.value,s7ny.value)" value="X进制转Y进制" name="button2">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <dl>
+            <dt>十进制转换为二进制:</dt>
+            <dd>整数部分：除2取余,逆序排列 小数部分：乘2取整，顺序排列。</dd>
+            <dt>二进制转换为十进制:</dt>
+            <dd>按权相加法，即将二进制每位上的数乘以权，然后相加之和即是十进制数。</dd>
+            <dt>二进制转换为八进制:</dt>
+            <dd>取三合一法，即从二进制的小数点为分界点，向左（向右）每三位取成一位，接着将这三位二进制按权相加，得到的数就是一位八位二进制数，然后，按顺序进行排列，小数点的位置不变，得到的数字就是我们所求的八进制数。如果向左（向右）取三位后，取到最高（最低）位时候，如果无法凑足三位，可以在小数点最左边（最右边），即整数的最高位（最低位）添0，凑足三位。</dd>
+            <dt>八进制转换为二进制:</dt>
+            <dd>取一分三法，即将一位八进制数分解成三位二进制数，用三位二进制按权相加去凑这位八进制数，小数点位置照旧。</dd>
+            <dt>二进制转换为十六进制:</dt>
+            <dd>取四合一法，即从二进制的小数点为分界点，向左（向右）每四位取成一位，接着将这四位二进制按权相加，得到的数就是一位十六位二进制数，然后，按顺序进行排列，小数点的位置不变，得到的数字就是我们所求的十六进制数。如果向左（向右）取四位后，取到最高（最低）位时候，如果无法凑足四位，可以在小数点最左边（最右边），即整数的最高位（最低位）添0，凑足四位。</dd>
+            <dt>十六进制转换为二进制:</dt>
+            <dd>取一分四法，即将一位十六进制数分解成四位二进制数，用四位二进制按权相加去凑这位十六进制数，小数点位置照旧。</dd>
+            <dt>其它进制间转换：</dt>
+            <dd>如八进制与十六进制转换：一般不能互相直接转换，一般是将八进制（或十六进制）转换为二进制，然后再将二进制转换为十六进制（或八进制），小数点位置不变。那么相应的转换请参照上面二进制与八进制的转换和二进制与十六进制的转</dd>
+        </dl>
+    </body>
+</html>
