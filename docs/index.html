@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>网页工具大全</title>
+    <title>纯网页工具合集</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="telephone=no,email=no" name="format-detection" />
@@ -11,71 +11,467 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="author" content="Jackson Dou" />
     <meta name="baidu-site-verification" content="code-2zQTA2OudC" />
-    <meta name="keywords" content="在线工具集合, BASE64加密解密, 在线JSON编辑器, Jackson Dou" />
-    <meta name="description" content="在线工具集合，在线JSON编辑格式化工具，BASE64加密解密" />
+    <meta name="keywords" content="在线工具集合, 纯网页工具合集, BASE64加密解密, 在线JSON编辑器" />
+    <meta name="description" content="HTML在线工具合集，使用 HTML、JS、CSS 制作和实现，数据的处理和计算以及文件处理均在本地浏览器中进行。" />
     <link rel="icon" href="favicon.ico" mce_href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" mce_href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./assets/lib/bootstrap/css/bootstrap.min.css">
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="./assets/lib/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <style>
+        .body-background {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #fff;
+            background-image: url(./assets/img/bingBackground.png);
+            background-position: center center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #article-carousel {
+            height: 200px;
+        }
+
+        #article-carousel .shade {
+            height: 200px;
+        }
+
+        #article-carousel .title {
+            max-height: 3rem;
+            overflow: hidden;
+        }
+
+        #article-carousel .summary {
+            height: 4.5em;
+            overflow: hidden;
+        }
+
+        .card-text {
+            min-height: 3rem;
+        }
+
+        .jumbotron {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            margin-bottom: 0;
+            background-color: unset;
+        }
+        @media (min-width: 768px) {
+            .jumbotron {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+        }
+
+        .jumbotron p:last-child {
+            margin-bottom: 0;
+        }
+
+        .jumbotron h1 {
+            font-weight: 300;
+        }
+
+        .jumbotron .container {
+            max-width: 40rem;
+        }
+
+        .footer {
+            /* padding-top: 3rem; */
+            /* padding-bottom: 3rem; */
+            width: 100%;
+            /* height: 60px; */
+            min-height: 60px;
+            line-height: 60px;
+            background-color: #fff;
+        }
+
+        footer p {
+            margin-bottom: .25rem;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">网页工具大全</a>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">本在线工具合集，使用 HTML、JS、CSS 制作和实现，数据的处理和计算以及文件处理均在本地浏览器中进行。</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="https://github.com/jksdou" class="text-white" target="_blank">Follow on Github</a></li>
+                        <li><a href="#" class="text-white" target="_blank">Like on Facebook</a></li>
+                        <li><a href="#" class="text-white" target="_blank">Email me</a></li>
+                        <li><a  class="text-white" href="https://html-demo.uiisc.org/" target="_blank">HTML Demo</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <p class="navbar-text">欢迎访问！</p>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://html-demo.uiisc.org/" target="_blank">网页演示代码</a></li>
-                    <li><a href="https://github.com/jksdou/html-tools" target="_blank">源码</a></li>
-                </ul>
             </div>
-        </nav>
-    </div>
-    <div class="container">
-        <div class="content">
-            <p><a href="./jsoneditor/v1/">JSON在线编辑器V1.0</a></p>
-            <p><a href="./jsoneditor/v2/">JSON在线编辑器V2.0</a></p>
-            <p><a href="./email-image/">在线生成邮箱地址图片</a></p>
-            <p><a href="./base64/">BASE64加密解密</a></p>
-            <p><a href="./htaccess/">.HTACCESS文件在线生成</a></p>
-            <p><a href="./eatwhat/">今天吃啥</a></p>
-            <p><a href="./oral-arithmetic/">口算生成器</a></p>
-            <p><a href="./referance/">参考文献格式生成器</a></p>
-            <p><a href="./wordage/">在线字数统计工具</a></p>
-            <p><a href="./html-secret/">HTML原代码加、解密脚本</a></p>
-            <p><a href="./css/">CSS在线压缩与格式化工具</a></p>
-            <p><a href="./calendar/">万年历</a></p>
-            <p><a href="./json/">json数据可视化工具</a></p>
-            <p><a href="./kinship/">亲属关系图</a></p>
-            <p><a href="./regex/">正则测试</a></p>
-            <p><a href="./qrscanner/">在线二维码识别</a></p>
-            <p><a href="./qrgenerator/">在线二维码生成</a></p>
-            <p><a href="./wordsconversion/">在线繁体字转换工具</a></p>
-            <p><a href="./removeblank/">去掉空白行与注释</a></p>
-            <p><a href="./xpath-check/">xpath在线调试工具</a></p>
-            <p><a href="./html-space/">文本删除空格、回车和换行</a></p>
-            <p><a href="./words-to-pinyin/">在线汉字转拼音</a></p>
-            <p><a href="./words-no-repeat/">在线去重工具</a></p>
-            <p><a href="./words-flip/">字母翻转工具</a></p>
-            <p><a href="./jinzhi/">进制转换</a></p>
-            <p><a href="./recorder/">在线录音（必须https）</a></p>
-            <p><a href="./camera/">在线摄像头</a></p>
         </div>
-    </div>
-    <footer class="footer">
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> -->
+                <strong>HTML Tools</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <div class="body-background"></div>
+        <section class="jumbotron text-center">
+            <div class="container text-white">
+                <h1>纯网页工具合集</h1>
+                <p class="lead">本在线工具合集，使用 HTML、JS、CSS 制作和实现，数据的处理和计算以及文件处理均在本地浏览器中进行。</p>
+                <p>
+                    <a href="https://github.com/jksdou" class="btn btn-primary my-2" target="_blank">Github</a>
+                    <a href="https://html-demo.uiisc.org/" class="btn btn-secondary my-2" target="_blank">网页demo合集</a>
+                </p>
+            </div>
+        </section>
         <div class="container">
-            <p class="text-muted">
-                <span>&copy; 2019-present <a href="https://github.com/jksdou/" target="blank">Jackson Dou</a></span>
-                <span class="hidden-xs"> All Rights Reserved.</span>
-                <span class="pull-right"><a href="https://doudoudzj.com/" target="_blank">生活</a>&bull;<a href="https://uinote.com/" target="_blank">技术</a>&bull;<a href="https://crogram.org/" target="_blank">开源</a></span>
-            </p>
+            <div class="row col-xs-offset-10">
+                <!-- <div class="col-xl-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3>欢迎访问我的站点</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>不忘初心，方得始终！</p>
+                            <p>世上无难事，只怕有心人！</p>
+                            <p>只要坚持，梦想将会更近，加油！</p>
+                            <p>技术之路，永无止步，没有进步即是退步。只有不断学习，方能不被淘汰！</p>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">JSON在线编辑器V1.0</h5>
+                            <p class="card-text">JSON在线编辑器，JSON格式化工具，JSON验证工具</p>
+                            <a class="btn btn-primary" href="jsoneditor/v1">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">JSON在线编辑器V2.0</h5>
+                            <p class="card-text">JSON格式化工具是一款基于web的视图工具，你可以在线编辑和格式化JSON...</p>
+                            <a class="btn btn-primary" href="jsoneditor/v2">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线生成邮箱地址图片</h5>
+                            <p class="card-text">免费在线制作漂亮的邮箱图标（待完善）</p>
+                            <a class="btn btn-primary" href="email-image">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">BASE64加密解密</h5>
+                            <p class="card-text">BASE64加密解密</p>
+                            <a class="btn btn-primary" href="base64">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">.HTACCESS文件在线生成</h5>
+                            <p class="card-text">自动.htaccess文件在线生成编辑器，简单完成您需要的301跳转、404自定义等复杂任务！</p>
+                            <a class="btn btn-primary" href="htaccess">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">今天吃啥</h5>
+                            <p class="card-text">【今天吃啥】一个用餐推荐小工具，随机推荐食品，再也不用为今天吃什么发愁了。</p>
+                            <a class="btn btn-primary" href="eatwhat">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">口算生成器</h5>
+                            <p class="card-text">生成口算器，可打印保存</p>
+                            <a class="btn btn-primary" href="oral-arithmetic">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">密码生成工具</h5>
+                            <p class="card-text">纯前端计算、本地浏览器，通过记忆密码+区分代码按一定规则生成密码</p>
+                            <a class="btn btn-primary" href="pwd-generator" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线字数统计工具</h5>
+                            <p class="card-text">在线统计字符字节汉字数字标点符号，计算word文章字数</p>
+                            <a class="btn btn-primary" href="wordage" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">HTML代码加、解密脚本</h5>
+                            <p class="card-text">HTML代码加、解密脚本</p>
+                            <a class="btn btn-primary" href="html-secret" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">CSS在线压缩与格式化工具</h5>
+                            <p class="card-text">提供CSS代码格式化，这样容易阅读，压缩CSS使得体积减小，传输速度快</p>
+                            <a class="btn btn-primary" href="csscompression" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">万年历日历</h5>
+                            <p class="card-text">可查询当前及邻近日期的公历与农历，以及节假日，黄历等信息。非常方便实用。</p>
+                            <a class="btn btn-primary" href="calendar" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">json数据可视化工具</h5>
+                            <p class="card-text">json数据可视化工具</p>
+                            <a class="btn btn-primary" href="json" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">亲属关系图</h5>
+                            <p class="card-text">亲属关系图</p>
+                            <a class="btn btn-primary" href="kinship" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">正则测试</h5>
+                            <p class="card-text">正则测试</p>
+                            <a class="btn btn-primary" href="regex" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线二维码生成</h5>
+                            <p class="card-text">在线二维码生成</p>
+                            <a class="btn btn-primary" href="qrgenerator" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线二维码识别</h5>
+                            <p class="card-text">在线二维码识别</p>
+                            <a class="btn btn-primary" href="qrscanner" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线繁体字转换工具</h5>
+                            <p class="card-text">在线繁体字转换工具</p>
+                            <a class="btn btn-primary" href="wordsconversion" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">去掉空白行与注释</h5>
+                            <p class="card-text">去掉空白行与注释</p>
+                            <a class="btn btn-primary" href="removeblank" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">xpath在线调试工具</h5>
+                            <p class="card-text">xpath在线调试工具</p>
+                            <a class="btn btn-primary" href="xpath-check" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">文本删除空格、回车和换行</h5>
+                            <p class="card-text">文本删除空格、回车和换行</p>
+                            <a class="btn btn-primary" href="html-space" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线汉字转拼音</h5>
+                            <p class="card-text">在线汉字转拼音</p>
+                            <a class="btn btn-primary" href="words-to-pinyin" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线去重工具</h5>
+                            <p class="card-text">在线去重工具</p>
+                            <a class="btn btn-primary" href="words-no-repeat" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">字母翻转工具</h5>
+                            <p class="card-text">字母翻转工具</p>
+                            <a class="btn btn-primary" href="words-flip" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">进制转换</h5>
+                            <p class="card-text">进制转换</p>
+                            <a class="btn btn-primary" href="jinzhi" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线录音</h5>
+                            <p class="card-text">在线录音，录制MP3音频（必须https）</p>
+                            <a class="btn btn-primary" href="recorder" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">在线摄像头</h5>
+                            <p class="card-text">使用HTML、JS 和 Canvas访问桌面摄像头实现拍照和视频录制。</p>
+                            <a class="btn btn-primary" href="camera" target="_blank">马上打开</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 推荐信息 -->
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">推荐信息</div>
+                <div class="card-body">
+                    <div id="article-carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <li data-target="#article-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#article-carousel" data-slide-to="1"></li>
+                        </div>
+                        <div class="carousel-inner">
+                            <a class="carousel-item active" style="background-color: #21252996" href="https://www.aliyun.com/minisite/goods?userCode=mcuct8z4&share_source=copy_link" target="_blank">
+                                <img class="d-block w-100" style="height: 200px;" src="./assets/img/970x250.jpeg"/>
+                                <div class="carousel-caption d-md-block">
+                                    <h5 class="title">爆款云服务器低至3折，1核1G 1M 仅17月/月</h5>
+                                    <p class="summary"></p>
+                                </div>
+                            </a>
+                            <a class="carousel-item" style="background-color: #21252996" href="https://www.aliyun.com/minisite/goods?userCode=mcuct8z4&share_source=copy_link" target="_blank">
+                                <img class="d-block w-100" style="height: 200px;" src="./assets/img/970x250.jpeg"/>
+                                <div class="carousel-caption d-md-block">
+                                    <h5 class="title">爆款云服务器低至3折，1核1G 1M 仅17月/月</h5>
+                                    <p class="summary"></p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- <button class="carousel-control-prev" type="button" data-target="#article-carousel" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-target="#article-carousel" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 友情链接 -->
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">友情链接</div>
+                <div class="card-body">
+                    <a class="btn btn-link" href="https://doudoudzj.com/" target="_blank">唐钰豆豆</a>
+                    <a class="btn btn-link" href="https://uinote.com" target="_blank">前端笔记</a>
+                    <a class="btn btn-link" href="https://crogram.com" target="_blank">程江科技</a>
+                    <a class="btn btn-link" href="https://crogram.org" target="_blank">程江开源</a>
+                    <a class="btn btn-link" href="https://pay.croidc.cn" target="_blank">程江支付</a>
+                    <a class="btn btn-link" href="https://croidc.com" target="_blank">程江云</a>
+                    <a class="btn btn-link" href="https://u-id.cn" target="_blank">统一身份认证</a>
+                    <a class="btn btn-link" href="https://free.uiisc.org" target="_blank">免费虚拟主机</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container mt-4">
+            <span class="float-right">
+                <a href="#">Back to top</a>
+            </span>
+            <div>
+                <span>Copyright &copy; 2023 Jackson Dou</span>
+                <!-- <span class="hidden-xs"> All Rights Reserved.</span> -->
+                <!-- <span><a href="http://beian.miit.gov.cn/" target="_blank">豫ICP备14006598号</a></span> -->
+            </div>
         </div>
     </footer>
+
+    <script src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>

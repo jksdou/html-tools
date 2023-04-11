@@ -79,7 +79,7 @@
                     recordingslist.innerHTML += '上传成功：<a href="' + xhr.responseText + '" target="_blank">' + mp3Name + '</a>';
                 }
             };
-            xhr.open('POST', 'upload.ashx');
+            xhr.open('POST', 'upload.php');
             xhr.send(fd);
         }
     </script>

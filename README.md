@@ -1,8 +1,8 @@
-# HTML-TOOLS
+# HTML Tools
 
 网页工具合集
 
-访问：
+在线访问：
 
 1. [html-tools.uiisc.org](https://html-tools.uiisc.org)（Cloudflare Pages）
 
